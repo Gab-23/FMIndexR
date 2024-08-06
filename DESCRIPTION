@@ -1,20 +1,18 @@
 Package: FMIndexR
 Title: FM Index Creation And Pattern Search
 Version: 0.99.0
-Authors@R: 
-    person("Gabriele", "Oliveto", email = "Gabriele.oliveto@mail.polimi.it", 
-            role = c("aut", "cre"))
-Description: Generates all Data structures of FM index and looks for pattern using Backward search.
+Authors@R: c(
+    person("Gabriele", "Oliveto", email = "Gabriele.oliveto@mail.polimi.it", role = c("aut", "cre"), comment = c(ORCID = "0000-0000-0000-0000")))
+Description: Generates all Data structures of FM index and looks for pattern using Backward search. The provided FM index is composed of the suffix array, the Burrows-Wheeler transform, the Occurrency matrix and the Count array. The Backward search allows for fast pattern recognition and returns the pattern indexes.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Imports: zoo, Biostrings, IRanges
+Imports: zoo, Biostrings, IRanges, utils
 NeedsCompilation: no
 Packaged: 2024-08-06 10:05:29 UTC; gabry
-Author: Gabriele Oliveto [aut, cre]
-Maintainer: Gabriele Oliveto <Gabriele.oliveto@mail.polimi.it>
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+biocViews: GenomicSequence
