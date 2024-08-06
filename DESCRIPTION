@@ -1,0 +1,20 @@
+Package: FMIndexR
+Title: FM Index Creation And Pattern Search
+Version: 0.99.0
+Authors@R: 
+    person("Gabriele", "Oliveto", email = "Gabriele.oliveto@mail.polimi.it", 
+            role = c("aut", "cre"))
+Description: Generates all Data structures of FM index and looks for pattern using Backward search.
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: zoo, Biostrings, IRanges
+NeedsCompilation: no
+Packaged: 2024-08-06 10:05:29 UTC; gabry
+Author: Gabriele Oliveto [aut, cre]
+Maintainer: Gabriele Oliveto <Gabriele.oliveto@mail.polimi.it>
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
