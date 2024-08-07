@@ -30,7 +30,8 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
 
   SuffixArray <- function(input_string) {
     if (nchar(input_string) == 0) {
-      stop('ERROR! Empty sequence detected!')
+      message('ERROR! Empty sequence detected!')
+      return(NULL)
     } else {
       special_char <- '$'
       complete_string <- paste(input_string,special_char, sep = '', collapse = '')
@@ -106,7 +107,8 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
                          {stop('Non standard symbols detected in FASTA file!')})
 
   if (length(fasta_data) > 1) {
-    stop('ERROR! multiFASTA files are not accepted!')
+    message('ERROR! multiFASTA files are not accepted!')
+    return(NULL)
   } else {
 
     fasta_sequence <- as.character(fasta_data)
@@ -114,23 +116,23 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
 
     fasta_sequence_header <- names(fasta_data)
     fasta_sequence_header_path <- paste(output, 'name.txt', sep = '', collapse = '')
-    print('FASTA sequence correctly read!')
+    message('FASTA sequence correctly read!')
 
     suffix_array <- SuffixArray(fasta_sequence)
     suffix_array_path <- paste(output, 'suffix_array.txt', sep = '', collapse = '')
-    print('Suffix Array created!')
+    message('Suffix Array created!')
 
     BWT <- BWTransform(suffix_array)
     BWT_path <- paste(output, 'BWT.txt', sep = '', collapse = '')
-    print('BWT created!')
+    message('BWT created!')
 
     occ_matrix <- OccMatrix(BWT)
     occ_matrix_path <- paste(output, 'occ_matrix.txt', sep = '', collapse = '')
-    print('Occ matrix created!')
+    message('Occ matrix created!')
 
     c_array <- CountArray(BWT)
     c_array_path <- paste(output, 'c_array.txt', sep = '', collapse = '')
-    print('C Array created!')
+    message('C Array created!')
 
     if (save) {
       writeLines(fasta_sequence_header, con = fasta_sequence_header_path)

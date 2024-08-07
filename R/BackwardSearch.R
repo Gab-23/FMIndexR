@@ -18,10 +18,11 @@
 BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
 
   if (!is(pattern,'character') || (nchar(pattern) == 0)) {
-    stop('ERROR! Pattern MUST be a non-empty string')
-  } else {
-    if (!is(FM_index, "FM_index")) {
-      stop('ERROR! FM index MUST be of class FM_index!')
+    message('ERROR! Pattern MUST be a non-empty string')
+    return(NULL)
+  } else if (!is(FM_index, "FM_index")) {
+      message('ERROR! FM index MUST be of class FM_index!')
+      return(NULL)
     } else {
 
       SA <- FM_index$SuffixArray
@@ -42,7 +43,8 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
       logical_2 <- length(setdiff(reversed_pattern_array,original_sequence_array)) > 0
 
       if (logical_2) {
-        return('Pattern NOT found')
+        message('Pattern NOT found')
+        return(NULL)
       }
 
       if (any(SA$no_money == pattern)) {
@@ -59,7 +61,7 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
         end <- C[as.character(0),char] + Occ[as.character(end),char] -1
 
         if ((start > end) & (nchar(match) == 0)) {
-          return('Pattern NOT found')
+          message('Pattern NOT found')
           break
         }
       }
@@ -74,11 +76,11 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
       indexes_str <- paste(indexes, collapse = ", ")
 
       if (nchar(original_sequence) <= 3000) {
-        print(paste('Original Sequence: ', original_sequence, sep = ''))
+        message(sprintf('Original Sequence: %s', original_sequence))
       }
 
-      print(paste(num_pattern, ' pattern(s) found', sep = ''))
-      print(paste('Index(es): ', indexes_str, sep = ''))
+      message(sprintf('%d pattern(s) found',num_pattern))
+      message(sprintf('Index(es): %s ', indexes_str))
 
       if (store_elems) {
         return(list(original_sequence,indexes,pattern))
