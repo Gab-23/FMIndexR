@@ -9,7 +9,9 @@
 #' @importFrom IRanges reverse
 #' @examples
 #' # example creation of pattern search using BackwardSearch and an FM Index
-#' FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2.txt", package = "FMIndexR"))
+#' input_file <- system.file("extdata", "NM_001185098.2.txt", package = "FMIndexR")
+#' output_path <- system.file("output", package = "FMIndexR")
+#' FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
 #' BackwardSearch(FM_index,"ATC")
 #' @export
 BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
