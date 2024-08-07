@@ -19,6 +19,9 @@
 #' @importFrom zoo na.locf
 #' @importFrom Biostrings readDNAStringSet
 #' @importFrom utils write.table
+#' @examples
+#' # example creation of an FM index from a FASTA file
+#' FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2", package = "FMIndexR"))
 #' @export
 FM_index_from_FASTA <- function(input, output, save = TRUE){
 
@@ -37,10 +40,10 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
 
       idx_array <- 0:(complete_string_length-1)
 
-      suffix_array <- sapply(X = idx_array, function(i){
+      suffix_array <- vapply(X = idx_array, function(i){
         actual_idx <- i
         used_idx <- i + 1
-        suffix <- substr(complete_string, used_idx,complete_string_length)})
+        suffix <- substr(complete_string, used_idx,complete_string_length)}, character(1))
 
       suffix_df <- data.frame(idx = idx_array,
                               suffix = suffix_array)
@@ -61,9 +64,9 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
       actual_idx <- suffix_array$idx
       used_idx <- ifelse(actual_idx == 0, nchar(original_sequence),actual_idx)
 
-      BWT <- sapply(X = used_idx, function(i){
+      BWT <- vapply(X = used_idx, function(i){
         idx <- i
-        substr(original_sequence,idx,idx)})
+        substr(original_sequence,idx,idx)}, character(1))
 
       BWT <- paste(BWT, sep = '', collapse = '')
       class(BWT) <- c('BWT','character')

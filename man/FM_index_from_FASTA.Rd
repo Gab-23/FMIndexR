@@ -31,3 +31,7 @@ FM index is composed of 4 different elements:
 The FASTA file is parsed using a Biostrings function (readDNAStringSet) in order to ensure a robust and reliable parsing method
 The FM Index returned by the function contains also the header of the FASTA file in order to keep informations related to the original sequence
 }
+\examples{
+# example creation of an FM index from a FASTA file
+FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2", package = "FMIndexR"))
+}
