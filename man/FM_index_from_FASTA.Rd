@@ -33,5 +33,5 @@ The FM Index returned by the function contains also the header of the FASTA file
 }
 \examples{
 # example creation of an FM index from a FASTA file
-FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2", package = "FMIndexR"))
+FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2.txt", package = "FMIndexR"))
 }

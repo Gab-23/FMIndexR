@@ -19,3 +19,8 @@ Prints a report of the number of patterns and their location, if store_elems = T
 \description{
 Looks for patterns inside the original sequence, using its FM_index and performing a backward search procedure for finding patterns
 }
+\examples{
+# example creation of pattern search using BackwardSearch and an FM Index
+FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2.txt", package = "FMIndexR"))
+BackwardSearch(FM_index,"ATC")
+}

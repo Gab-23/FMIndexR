@@ -21,7 +21,7 @@
 #' @importFrom utils write.table
 #' @examples
 #' # example creation of an FM index from a FASTA file
-#' FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2", package = "FMIndexR"))
+#' FM_index <- FM_index_from_FASTA(system.file("extdata", "NM_001185098.2.txt", package = "FMIndexR"))
 #' @export
 FM_index_from_FASTA <- function(input, output, save = TRUE){
 
