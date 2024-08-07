@@ -30,8 +30,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
 
   SuffixArray <- function(input_string) {
     if (nchar(input_string) == 0) {
-      message('ERROR! Empty sequence detected!')
-      return(NULL)
+      stop('ERROR! Empty sequence detected!')
     } else {
       special_char <- '$'
       complete_string <- paste(input_string,special_char, sep = '', collapse = '')
@@ -107,8 +106,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
                          {stop('Non standard symbols detected in FASTA file!')})
 
   if (length(fasta_data) > 1) {
-    message('ERROR! multiFASTA files are not accepted!')
-    return(NULL)
+    stop('ERROR! multiFASTA files are not accepted!')
   } else {
 
     fasta_sequence <- as.character(fasta_data)
