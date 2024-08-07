@@ -73,7 +73,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
 
     for (char in colnames(Occ_df)) {
       idx_vector <- which(bwt_letters == char)
-      Occ_df[idx_vector,char] <- 1:length(idx_vector)
+      Occ_df[idx_vector,char] <- seq_along(idx_vector)
 
       count_vec <- Occ_df[,char]
       count_vec <- zoo::na.locf(count_vec, na.rm = FALSE)
