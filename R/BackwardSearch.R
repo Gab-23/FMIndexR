@@ -41,7 +41,8 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
       logical_2 <- length(setdiff(reversed_pattern_array,original_sequence_array)) > 0
 
       if (logical_2) {
-        return('Pattern NOT found')
+        message('Pattern NOT found')
+        return(NULL)
       }
 
       if (any(SA$no_money == pattern)) {
@@ -58,7 +59,8 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
         end <- C[as.character(0),char] + Occ[as.character(end),char] -1
 
         if ((start > end) & (nchar(match) == 0)) {
-          return('Pattern NOT found')
+          message('Pattern NOT found')
+          return(NULL)
           break
         }
       }
