@@ -29,13 +29,8 @@
 FM_index_from_FASTA <- function(input, output, save = TRUE){
 
   SuffixArray <- function(input_string) {
-
-    if (typeof(input_string) != 'character') {
-      stop('ERROR! Input sequence MUST be a string')
-
-    } else if (nchar(input_string) == 0) {
+    if (nchar(input_string) == 0) {
       stop('ERROR! Empty sequence detected!')
-
     } else {
       special_char <- '$'
       complete_string <- paste(input_string,special_char, sep = '', collapse = '')
@@ -53,82 +48,58 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
 
       sorted_suffix_df <- suffix_df[order(suffix_array),]
       rownames(sorted_suffix_df) <- 0:(nrow(sorted_suffix_df)-1)
-      class(sorted_suffix_df) <- c('SuffixArray','data.frame')
       return(sorted_suffix_df)
     }}
   BWTransform <- function(suffix_array) {
+    original_sequence <- suffix_array[suffix_array$idx == 0,2]
+    actual_idx <- suffix_array$idx
+    used_idx <- ifelse(actual_idx == 0, nchar(original_sequence),actual_idx)
 
-    logical <- any(class(suffix_array) != c('SuffixArray','data.frame'))
+    BWT <- vapply(X = used_idx, function(i){
+                  idx <- i
+                  substr(original_sequence,idx,idx)}, character(1))
 
-    if (logical) {
-      stop('ERROR! Input MUST be a data.frame of class SuffixArray, use the dedicated function!')
-    } else {
-      original_sequence <- suffix_array[suffix_array$idx == 0,2]
-      actual_idx <- suffix_array$idx
-      used_idx <- ifelse(actual_idx == 0, nchar(original_sequence),actual_idx)
-
-      BWT <- vapply(X = used_idx, function(i){
-        idx <- i
-        substr(original_sequence,idx,idx)}, character(1))
-
-      BWT <- paste(BWT, sep = '', collapse = '')
-      class(BWT) <- c('BWT','character')
-      return(BWT)
-    }}
+    BWT <- paste(BWT, sep = '', collapse = '')
+    return(BWT)
+    }
   OccMatrix <- function(bwt) {
+    length_bwt <- nchar(bwt)
+    bwt_letters <- strsplit(bwt, split = '')[[1]]
+    unique_bwt_letters <- unique(bwt_letters)
+    sorted_unique_bwt_letters <- sort(unique_bwt_letters)
 
-    logical <- any(class(bwt) != c('BWT','character'))
+    Occ_df <- data.frame(matrix(data = NA, nrow = length_bwt, ncol = length(sorted_unique_bwt_letters)))
+    colnames(Occ_df) <- sorted_unique_bwt_letters
 
-    if (logical) {
-      stop('ERROR! Input MUST be a string of class BWT, use the dedicated function!')
-    } else {
-      length_bwt <- nchar(bwt)
-      bwt_letters <- strsplit(bwt, split = '')[[1]]
-      unique_bwt_letters <- unique(bwt_letters)
-      sorted_unique_bwt_letters <- sort(unique_bwt_letters)
+    for (char in colnames(Occ_df)) {
+      idx_vector <- which(bwt_letters == char)
+      Occ_df[idx_vector,char] <- 1:length(idx_vector)
 
-      Occ_df <- data.frame(matrix(data = NA, nrow = length_bwt, ncol = length(sorted_unique_bwt_letters)))
-      colnames(Occ_df) <- sorted_unique_bwt_letters
+      count_vec <- Occ_df[,char]
+      count_vec <- zoo::na.locf(count_vec, na.rm = FALSE)
+      count_vec[is.na(count_vec)] <- 0
 
-      for (char in colnames(Occ_df)) {
-        idx_vector <- which(bwt_letters == char)
-        Occ_df[idx_vector,char] <- 1:length(idx_vector)
+      Occ_df[,char] <- count_vec}
 
-        count_vec <- Occ_df[,char]
-        count_vec <- zoo::na.locf(count_vec, na.rm = FALSE)
-        count_vec[is.na(count_vec)] <- 0
-
-        Occ_df[,char] <- count_vec
-
-      }
-
-      rownames(Occ_df) <- 0:(nrow(Occ_df)-1)
-      class(Occ_df) <- c('Occ','data.frame')
-      return(Occ_df)
-    }}
+    rownames(Occ_df) <- 0:(nrow(Occ_df)-1)
+    return(Occ_df)
+    }
   CountArray <- function(bwt) {
+    bwt_char <- sort(unique((strsplit(bwt, split = '')[[1]])))
+    sorted_bwt <- sort(strsplit(bwt, split = '')[[1]])
 
-    logical <- any(class(bwt) != c('BWT','character'))
+    count_df <- data.frame(matrix(data = NA, nrow = 1, ncol = length(bwt_char)))
+    colnames(count_df) <- bwt_char
 
-    if (logical) {
-      stop('ERROR! Input MUST be a string of class BWT, use the dedicated function!')
-    } else {
-      bwt_char <- sort(unique((strsplit(bwt, split = '')[[1]])))
-      sorted_bwt <- sort(strsplit(bwt, split = '')[[1]])
-
-      count_df <- data.frame(matrix(data = NA, nrow = 1, ncol = length(bwt_char)))
-      colnames(count_df) <- bwt_char
-
-      for (char in bwt_char) {
-        df_idx <- which(colnames(count_df) == char)
-        char_idx <- which(sorted_bwt == char)[1] - 1
-        count_df[1,df_idx] <- char_idx
+    for (char in bwt_char) {
+      df_idx <- which(colnames(count_df) == char)
+      char_idx <- which(sorted_bwt == char)[1] - 1
+      count_df[1,df_idx] <- char_idx
       }
 
-      rownames(count_df) <- 0
-      class(count_df) <- c('C','data.frame')
-      return(count_df)
-    }}
+    rownames(count_df) <- 0
+    return(count_df)
+    }
 
   fasta_data <- tryCatch({Biostrings::readDNAStringSet(input)},
                          warning = function(w)

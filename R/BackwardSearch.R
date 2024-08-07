@@ -16,11 +16,10 @@
 #' @export
 BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
 
-  if (typeof(pattern) != 'character' | (nchar(pattern) == 0)) {
+  if (!is(pattern,'character') || (nchar(pattern) == 0)) {
     stop('ERROR! Pattern MUST be a non-empty string')
   } else {
-    logical_1 <- class(FM_index) != 'FM_index'
-    if (logical_1) {
+    if (!is(FM_index, "FM_index")) {
       stop('ERROR! FM index MUST be of class FM_index!')
     } else {
 
