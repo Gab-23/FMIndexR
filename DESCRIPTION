@@ -8,12 +8,10 @@ License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Imports: zoo, Biostrings, IRanges, utils
+Imports: zoo, Biostrings, IRanges, utils, methods
 NeedsCompilation: no
 Packaged: 2024-08-06 10:05:29 UTC; gabry
-Suggests: 
-    knitr,
-    rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 biocViews: GenomicSequence
 URL: https://github.com/Gab-23/FMIndexR

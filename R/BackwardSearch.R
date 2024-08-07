@@ -7,6 +7,7 @@
 #' @param store_elems default = FALSE, can be modified to save the original sequence, the pattern indexes and the pattern in case a manual check wants to be made
 #' @return Prints a report of the number of patterns and their location, if store_elems = TRUE a report for manual check can be returned
 #' @importFrom IRanges reverse
+#' @importFrom methods is
 #' @examples
 #' # example creation of pattern search using BackwardSearch and an FM Index
 #' input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
