@@ -86,4 +86,4 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
         return(list(original_sequence,indexes,pattern))
       }
 
-    }}}
+    }}
