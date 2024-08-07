@@ -101,9 +101,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE){
     return(count_df)
     }
 
-  fasta_data <- tryCatch({Biostrings::readDNAStringSet(input)},
-                         warning = function(w)
-                         {stop('Non standard symbols detected in FASTA file!')})
+  fasta_data <- Biostrings::readDNAStringSet(input)
 
   if (length(fasta_data) > 1) {
     stop('ERROR! multiFASTA files are not accepted!')
