@@ -11,18 +11,24 @@ BackwardSearch(FM_index, pattern, store_elems = FALSE)
 
 \item{pattern}{string containing the pattern to look for}
 
-\item{store_elems}{default = FALSE, can be modified to save the original sequence, the pattern indexes and the pattern in case a manual check wants to be made}
+\item{store_elems}{default = FALSE, can be modified to save
+the original sequence,
+the pattern indexes and the pattern
+in case a manual check wants to be made}
 }
 \value{
-Prints a report of the number of patterns and their location, if store_elems = TRUE a report for manual check can be returned
+A report of the number of patterns and their location,
+if store_elems = TRUE a report for manual check can be returned
 }
 \description{
-Looks for patterns inside the original sequence, using its FM_index and performing a backward search procedure for finding patterns
+Looks for patterns inside the original sequence,
+using its FM_index and performing a
+backward search procedure for finding patterns
 }
 \examples{
 # example creation of pattern search using BackwardSearch and an FM Index
 input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 output_path <- system.file("output", package = "FMIndexR")
 FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
-BackwardSearch(FM_index,"ATC")
+BackwardSearch(FM_index, "ATC")
 }

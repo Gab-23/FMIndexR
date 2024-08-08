@@ -2,8 +2,13 @@ Package: FMIndexR
 Title: FM Index Creation And Pattern Search
 Version: 0.99.0
 Authors@R: c(
-    person("Gabriele", "Oliveto", email = "gabriele.oliveto@mail.polimi.it", role = c("aut", "cre"), comment = c(ORCID = "0000-0000-0000-0000")))
-Description: Generates all Data structures of FM index and looks for pattern using Backward search. The provided FM index is composed of the suffix array, the Burrows-Wheeler transform, the Occurrency matrix and the Count array. The Backward search allows for fast pattern recognition and returns the pattern indexes.
+    person("Gabriele", "Oliveto", email = "gabriele.oliveto@mail.polimi.it", 
+            role = c("aut", "cre"), comment = c(ORCID = "0000-0000-0000-0000")))
+Description: Generates all Data structures of FM index and looks for patterns 
+    using Backward search. The provided FM index is composed of the suffix 
+    array, the Burrows-Wheeler transform, the Occurrency matrix and the Count 
+    array. The Backward search allows for fast pattern recognition and returns 
+    the pattern indexes.
 License: GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
