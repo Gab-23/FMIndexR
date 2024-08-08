@@ -7,24 +7,25 @@ FM_index <- suppressMessages(FM_index_from_FASTA(input_file, output_path, save =
 not_an_FM_index <- 2
 not_a_pattern <- 2
 
-example_search <- suppressMessages(BackwardSearch(FM_index, 'ATC', TRUE))
-example_search_2 <- suppressMessages(BackwardSearch(FM_index, 'CCCCCCCCC', TRUE))
+example_search <- suppressMessages(BackwardSearch(FM_index, "ATC", TRUE))
+example_search_2 <- suppressMessages(BackwardSearch(FM_index, "CCCCCCCCC", TRUE))
 
 test_that("Error with no FM_index", {
-  expect_error(BackwardSearch(not_an_FM_index, 'AGA'))})
+  expect_error(BackwardSearch(not_an_FM_index, "AGA"))
+})
 
 test_that("Error with empty pattern", {
-  expect_error(BackwardSearch(FM_index, ''))})
+  expect_error(BackwardSearch(FM_index, ""))
+})
 
 test_that("Error with no pattern", {
-  expect_error(BackwardSearch(FM_index, not_a_pattern))})
+  expect_error(BackwardSearch(FM_index, not_a_pattern))
+})
 
 test_that("Found pattern", {
-  expect_equal(example_search[[2]], c(20,33))})
+  expect_equal(example_search[[2]], c(20, 33))
+})
 
 test_that("Pattern not found", {
-  expect_null(example_search_2)})
-
-
-
-
+  expect_null(example_search_2)
+})
