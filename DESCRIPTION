@@ -16,8 +16,12 @@ RoxygenNote: 7.3.2
 Imports: zoo, Biostrings, IRanges, utils, methods
 NeedsCompilation: no
 Packaged: 2024-08-06 10:05:29 UTC; gabry
-Suggests: knitr, rmarkdown
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 biocViews: GenomicSequence
 URL: https://github.com/Gab-23/FMIndexR
 BugReports: https://github.com/Gab-23/FMIndexR/issues
+Config/testthat/edition: 3
