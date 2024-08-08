@@ -152,16 +152,12 @@ FM_index_from_FASTA <- function(input, output, save = TRUE) {
                          row.names = FALSE)
     }
 
-    FM_index <- list(fasta_sequence_header,
-                     suffix_array,
-                     BWT,
-                     occ_matrix,
-                     c_array)
-    names(FM_index) <- c("SequenceName",
-                         "SuffixArray",
-                         "BWT",
-                         "Occ",
-                         "CountArray")
+    FM_index <- list(SequenceName = fasta_sequence_header,
+                     SuffixArray = suffix_array,
+                     BWT = BWT,
+                     Occ = occ_matrix,
+                     CountArray = c_array)
+
     class(FM_index) <- "FM_index"
 
     return(FM_index)
