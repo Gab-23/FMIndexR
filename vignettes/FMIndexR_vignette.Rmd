@@ -13,10 +13,25 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE,comment = "#>")
 ```
 
-This package allows the user to efficiently build an FM index from an input FASTA file. The FM index data structure can be also saved in a user-defined output folder. The obtained FM index can then be used to look for patterns inside a sequence, using an implementation of Backward search
+This package allows the user to efficiently build an FM index from an input FASTA file. Data structures of FM index can be also saved in a user-defined output folder. The obtained FM index can then be used to look for patterns inside a sequence, using an implementation of Backward search algorithm.
 
 ```{r setup}
 library(FMIndexR)
+```
+
+Using the FM_index_from_FASTA function the FM index can easily be created. The function requires different parameters:
+
+-   input = the input path to the FASTA file
+
+-   output = the output path to the folder in which to save the data structures
+
+-   save = regulates whether or not to effectively save the data structures to the output folder (default = TRUE)
+
+The FM index is a list-like object of class "FM_index" and contains:
+
+-   Suffix array : a data structure containing all suffixes of the input string and its associated indexes
+
+```{FM_index_from_FASTA()}
 ```
 
 ```{r}
