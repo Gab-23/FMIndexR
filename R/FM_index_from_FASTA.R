@@ -1,6 +1,6 @@
 #' FM_index_from_FASTA
 #'
-#' Generates FM_index structure starting from an input FASTA file
+#' Generates an FM_index structure starting from an input FASTA file
 #'
 #' The FASTA file is parsed using a Biostrings function (readDNAStringSet)
 #'     in order to ensure a robust and reliable parsing method
@@ -8,8 +8,8 @@
 #' @param input path to the FASTA file
 #' @param output path to the folder in which to save the data structures
 #' @param save default = TRUE, can be modified
-#'     to avoid saving data in the output path as separate files
-#' @return Object of type FM_index (list-like object)
+#'     to avoid saving data in the output path
+#' @return List-like object of type FM_index
 #' @importFrom zoo na.locf
 #' @importFrom Biostrings readDNAStringSet
 #' @importFrom utils write.table

@@ -12,13 +12,13 @@ FM_index_from_FASTA(input, output, save = TRUE)
 \item{output}{path to the folder in which to save the data structures}
 
 \item{save}{default = TRUE, can be modified
-to avoid saving data in the output path as separate files}
+to avoid saving data in the output path}
 }
 \value{
-Object of type FM_index (list-like object)
+List-like object of type FM_index
 }
 \description{
-Generates FM_index structure starting from an input FASTA file
+Generates an FM_index structure starting from an input FASTA file
 }
 \details{
 The FASTA file is parsed using a Biostrings function (readDNAStringSet)

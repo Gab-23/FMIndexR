@@ -9,21 +9,22 @@ BackwardSearch(FM_index, pattern, store_elems = FALSE)
 \arguments{
 \item{FM_index}{object of class FM_index obtained using FM_index_from_FASTA}
 
-\item{pattern}{string containing the pattern to look for}
+\item{pattern}{non-empty string containing the pattern to look for}
 
 \item{store_elems}{default = FALSE, can be modified to save
 the original sequence,
-the pattern indexes and the pattern
+the pattern indexes and the pattern string
 in case a manual check wants to be made}
 }
 \value{
-A report of the number of patterns and their location,
+A report of the number of patterns found and their location,
 if store_elems = TRUE a report for manual check can be returned
+if no pattern is found, NULL is returned
 }
 \description{
 Looks for patterns inside the original sequence,
 using its FM_index and performing a
-backward search procedure for finding patterns
+backward search procedure
 }
 \examples{
 # example creation of pattern search using BackwardSearch and an FM Index
