@@ -1,6 +1,6 @@
 #' BackwardSearch
 #'
-#' Looks for patterns inside the original sequence,
+#' The function looks for patterns inside the original sequence,
 #'     using its FM_index and performing a
 #'     backward search procedure
 #'

@@ -1,6 +1,7 @@
 #' FM_index_from_FASTA
 #'
-#' Generates an FM_index structure starting from an input FASTA file
+#' The function generates an FM_index structure starting
+#'     from an input FASTA file
 #'
 #' The FASTA file is parsed using a Biostrings function (readDNAStringSet)
 #'     in order to ensure a robust and reliable parsing method

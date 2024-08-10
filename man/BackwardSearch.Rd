@@ -22,7 +22,7 @@ if store_elems = TRUE a report for manual check can be returned
 if no pattern is found, NULL is returned
 }
 \description{
-Looks for patterns inside the original sequence,
+The function looks for patterns inside the original sequence,
 using its FM_index and performing a
 backward search procedure
 }

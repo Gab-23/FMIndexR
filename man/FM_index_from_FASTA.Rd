@@ -18,7 +18,8 @@ to avoid saving data in the output path}
 List-like object of type FM_index
 }
 \description{
-Generates an FM_index structure starting from an input FASTA file
+The function generates an FM_index structure starting
+from an input FASTA file
 }
 \details{
 The FASTA file is parsed using a Biostrings function (readDNAStringSet)
