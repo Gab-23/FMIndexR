@@ -187,6 +187,8 @@ FM_index_from_FASTA <- function(input, output, save = TRUE) {
                                     sep = "\t",
                                     row.names = FALSE)}
 
+                message("Files correctly created!")
+
             FM_index <- list(
                             SequenceName = fasta_sequence_header,
                             SuffixArray = suffix_array,
