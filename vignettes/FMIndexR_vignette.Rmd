@@ -57,7 +57,6 @@ The FM index is a list-like object of class "FM_index" and contains:
         generated starting from the suffix array 
         for efficiency (compared to the procedure involving a matrix). 
         The BWT tends to cluster together similar characters.
-
         The BWT can be built starting from the suffix array, 
         by taking, for each index of the suffix array, 
         the character of the original sequence 
