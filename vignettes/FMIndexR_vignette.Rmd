@@ -1,5 +1,7 @@
 ---
 title: "FMIndexR_vignette"
+author: "Gabriele Oliveto"
+date: " `r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{FMIndexR_vignette}
