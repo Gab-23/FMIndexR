@@ -135,7 +135,7 @@ The idea is that the algorithm returns a range of the suffix array
     in which suffixes starting with the pattern are present. 
     The range is initialized with start = 1 
     (second row of the suffix array, since the first row is always \$) 
-    and end = length of the sequence.
+    and end = length of the sequence - 1.
 
 At each iteration the following steps are performed:
 
