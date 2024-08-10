@@ -31,8 +31,7 @@ The FM index is a list-like object of class "FM_index" and contains:
 
 -   Suffix array : a data structure containing all suffixes of the input string and its associated indexes
 
-```{FM_index_from_FASTA()}
-```
+`{FM_index_from_FASTA()}`
 
 ```{r}
 sessionInfo()

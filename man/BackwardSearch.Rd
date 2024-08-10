@@ -30,5 +30,5 @@ backward search procedure for finding patterns
 input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 output_path <- system.file("output", package = "FMIndexR")
 FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
-BackwardSearch(FM_index, "ATC")
+BackwardSearch(FM_index, "CC")
 }

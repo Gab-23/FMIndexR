@@ -19,7 +19,7 @@
 #' input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 #' output_path <- system.file("output", package = "FMIndexR")
 #' FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
-#' BackwardSearch(FM_index, "ATC")
+#' BackwardSearch(FM_index, "CC")
 #' @export
 BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
     if (!is(pattern, "character") || (nchar(pattern) == 0)) {

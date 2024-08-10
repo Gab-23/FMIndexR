@@ -23,7 +23,7 @@ test_that("Error with no pattern", {
 })
 
 test_that("Found pattern", {
-  expect_equal(example_search[[2]], c(20, 33))
+  expect_equal(example_search[[2]], c(2,3,6))
 })
 
 test_that("Pattern not found", {
