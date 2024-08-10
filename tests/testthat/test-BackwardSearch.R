@@ -7,7 +7,7 @@ FM_index <- suppressMessages(FM_index_from_FASTA(input_file, output_path, save =
 not_an_FM_index <- 2
 not_a_pattern <- 2
 
-example_search <- suppressMessages(BackwardSearch(FM_index, "ATC", TRUE))
+example_search <- suppressMessages(BackwardSearch(FM_index, "CC", TRUE))
 example_search_2 <- suppressMessages(BackwardSearch(FM_index, "CCCCCCCCC", TRUE))
 
 test_that("Error with no FM_index", {
