@@ -70,8 +70,8 @@ If **_start \> end_**, it means that the **_pattern is not found_**, so the iter
 **_NOTE :_** This first implementation, however, could not account for exact matches inside the suffix array _(i.e those suffixes that entirely matched the pattern)._ 
 
 In order to fix that, a small modification has been made: 
-- The algorithm first looks for exact matches inside the suffix array. 
-- If exact matches are found, the start of the final range is updated with the value returned by the exact match, if present. This is done because, inside a suffix array, an exact match will always be alphabetically smaller than other occurrencies of the pattern in other suffixes
-- The iteration is stopped if start \> stop AND no exact match is met
+- The algorithm first looks for **exact matches** inside the suffix array. 
+- If exact matches are found, the **start of the final range is updated** with the value returned by the exact match, if present. This is done because, inside a suffix array, **an exact match will always be alphabetically smaller than other occurrencies of the pattern in other suffixes**
+- The iteration is stopped if **start \> stop AND no exact match is met**
 
 >Made -with love- by Gabriele Oliveto
