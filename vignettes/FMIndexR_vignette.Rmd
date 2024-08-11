@@ -153,7 +153,7 @@ If **_start \> end_**, it means that
 
 **_NOTE :_** This first implementation, however, 
     could not account for exact matches inside the suffix array 
-    _(i.e those suffixes that entirely matched the pattern)._ 
+    _(i.e those suffixes that entirely matched the pattern, e.g. GATG)._ 
 
 ```{r paged.print=FALSE}
 FM_index$SuffixArray
