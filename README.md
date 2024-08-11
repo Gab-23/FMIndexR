@@ -16,7 +16,7 @@ can be easily created. The function requires different parameters:
 -   **_save =_**  regulates whether or not to effectively save the data structures to the output folder (**default = TRUE**)
 
 ```
-input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
+input_file <- system.file("extdata", "prova_vignette.txt", package = "FMIndexR")
 output_path <- system.file("output", package = "FMIndexR")
 FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
 ```
@@ -50,7 +50,7 @@ Patterns can be searched using the **_BackwardSearch_** function, that takes as 
 -   **_NOTE :_** if no pattern is found, NULL is returned
 
 ```{r}
-result <- BackwardSearch(FM_index, 'CC', TRUE)
+result <- BackwardSearch(FM_index, 'GATG', TRUE)
 ```
 The implementation was built following an online explanation that can be found [here](https://tinyurl.com/bwt-reference)
 
