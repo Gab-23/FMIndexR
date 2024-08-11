@@ -1,6 +1,6 @@
 ---
 title: "FMIndexR"
-author: "Made - with love - by Gabriele Oliveto"
+author: "Gabriele Oliveto"
 date: " `r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -58,14 +58,13 @@ The FM index is a list-like object of class "FM_index" and contains:
     (compared to the procedure involving a matrix). 
     The BWT tends to cluster together similar characters. 
 
-**_NOTE:_** The BWT can be built starting from the suffix array, 
-    by taking, for each index i of the suffix array, 
-    the character of the original sequence corresponding to the i-th index - 1
-
     ```{r}
     FM_index$BWT
     ```
-
+**_NOTE:_** The BWT can be built starting from the suffix array, 
+    by taking, for each index i of the suffix array, 
+    the character of the original sequence corresponding to the i-th index - 1
+    
 -   **_Occurrencies matrix (Occ) :_** 
     a table showing the cumulative count of characters of the BWT
 
@@ -115,7 +114,7 @@ Patterns can be searched using the **_BackwardSearch_** function,
 -   **_NOTE :_** if no pattern is found, NULL is returned
 
 ```{r}
-result <- BackwardSearch(FM_index, 'CC', TRUE)
+result <- BackwardSearch(FM_index, 'GATG', TRUE)
 ```
 
 ```{r}
