@@ -25,7 +25,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE) {
 
     SuffixArray <- function(input_string) {
         if (nchar(input_string) == 0) {
-            stop("ERROR! Empty sequence detected!")
+            stop("Empty sequence detected!")
             } else {
                 special_char <- "$"
                 complete_string <- paste(input_string,
@@ -119,7 +119,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE) {
     fasta_data <- Biostrings::readDNAStringSet(input)
 
     if (length(fasta_data) > 1) {
-        stop("ERROR! multiFASTA files are not accepted!")
+        stop("multiFASTA files are not accepted!")
         } else {
 
             fasta_sequence <- as.character(fasta_data)

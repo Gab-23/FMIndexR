@@ -24,9 +24,9 @@
 #' @export
 BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
     if (!is(pattern, "character") || (nchar(pattern) == 0)) {
-        stop("ERROR! Pattern MUST be a non-empty string")
+        stop("Pattern MUST be a non-empty string")
         } else if (!is(FM_index, "FM_index")) {
-            stop("ERROR! FM index MUST be of class FM_index!")
+            stop("FM index MUST be of class FM_index!")
             } else {
 
                 SA <- FM_index$SuffixArray
