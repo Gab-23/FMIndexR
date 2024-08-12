@@ -118,6 +118,9 @@ result <- BackwardSearch(FM_index, 'GATG', TRUE)
 ```
 
 ```{r}
+#MANUAL CHECK
+
+SA <- FM_index$SuffixArray
 sequence <- result$sequence
 indexes <- result$indexes
 pattern <- result$pattern
@@ -129,6 +132,12 @@ vec <- vapply(indexes,
                FUN.VALUE = logical(1))
 
 all(vec)
+
+rows_containing_indexes <- SA[SA$idx %in% indexes,]
+rows_starting_with_pattern <- SA[startsWith(SA$suffix, pattern), ]
+
+all(rows_containing_indexes == rows_starting_with_pattern)
+
 ```
 
 The implementation was built following an online explanation 
