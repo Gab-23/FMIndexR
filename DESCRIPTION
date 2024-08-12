@@ -1,5 +1,5 @@
 Package: FMIndexR
-Title: FM Index Creation And Pattern Search
+Title: FM Index Creation and Pattern Search
 Version: 0.99.0
 Authors@R: c(
     person("Gabriele", "Oliveto", email = "gabriele.oliveto@mail.polimi.it", 
