@@ -54,25 +54,23 @@ result <- BackwardSearch(FM_index, 'GATG', TRUE)
 ```
 The implementation was built following an online explanation that can be found [here](https://tinyurl.com/bwt-reference)
 
-The main idea is that the algorithm returns a range of rows in the suffix array in which suffixes starting with the pattern are present. 
+The main idea is that the algorithm returns a range of rows in the suffix array in which suffixes starting with the pattern are present.
+    
+Occurrencies are then found inside the original sequence by looking at the indexes associated with the suffix inside the suffix array
 
 The range is initialized with:
 - **_start =_**  1 (second row of the suffix array, since the first row is always \$)
-- **_end =_**  length of the sequence - 1.
+- **_end =_**  length of the BWT - 1.
 
 At each iteration (going backwards along the pattern) the following steps are performed:
+    
+-   for the first iteration only **_start =_** C[letter]
 
--   **_start =_**  Occ[start - 1, letter] + C[letter]
+-   then **_start =_**  Occ[start - 1, letter] + C[letter]
+
 -   **_end =_**  Occ[end, letter] + C[letter] - 1
 
-If **_start \> end_**, it means that the **_pattern is not found_**, so the iterations stop. 
-
-**_NOTE :_** This first implementation, however, could not account for exact matches inside the suffix array _(i.e those suffixes that entirely matched the pattern)._ 
-
-In order to fix that, a small modification has been made: 
-- The algorithm first looks for **exact matches** inside the suffix array. 
-- If exact matches are found, the **start of the final range is updated** with the value returned by the exact match, if present. This is done because, inside a suffix array, **an exact match will always be alphabetically smaller than other occurrencies of the pattern in other suffixes**
-- The iteration is stopped if **start \> stop AND no exact match is met**
+If **_start \> end_**, it means that the **_pattern is not found_**, so the iterations stops. 
 
 ## _**<u>Additional Notes</u>**_
 
