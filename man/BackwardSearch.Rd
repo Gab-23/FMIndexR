@@ -17,9 +17,9 @@ the pattern indexes and the pattern string
 in case a manual check wants to be made}
 }
 \value{
-A report of the number of patterns found and their location,
-if store_elems = TRUE a report for manual check can be returned
-if no pattern is found, NULL is returned
+Shows a report of the number of patterns found and their location.
+If store_elems = TRUE a report for manual check can be returned.
+If no pattern is found, NULL is returned
 }
 \description{
 The function looks for patterns inside the original sequence,
