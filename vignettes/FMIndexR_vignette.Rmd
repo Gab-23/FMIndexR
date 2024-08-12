@@ -126,10 +126,10 @@ indexes <- result$indexes
 pattern <- result$pattern
 
 vec <- vapply(indexes, 
-              function(idx){
-                  sub <- substr(sequence, idx + 1, idx + nchar(pattern))
-                  return(sub == pattern)}, 
-               FUN.VALUE = logical(1))
+                function(idx){
+                    sub <- substr(sequence, idx + 1, idx + nchar(pattern))
+                    return(sub == pattern)}, 
+                FUN.VALUE = logical(1))
 
 all(vec)
 
