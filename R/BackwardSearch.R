@@ -34,52 +34,41 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
                 Occ <- FM_index$Occ
                 C <- FM_index$CountArray
 
-                SA$no_money <- substr(SA$suffix, 1, nchar(SA$suffix) - 1)
-
                 original_sequence <- SA[SA$idx == 0, ]$suffix
                 original_sequence <- substr(original_sequence,1,
                                             nchar(original_sequence) - 1)
 
                 original_sequence_array <- strsplit(original_sequence,
                                                     split = "")[[1]]
-
                 pattern <- toupper(pattern)
                 reversed_pattern <- IRanges::reverse(pattern)
-
                 reversed_pattern_array <- strsplit(reversed_pattern,
                                                     split = "")[[1]]
 
                 logical_2 <- length(setdiff(reversed_pattern_array,
                                             original_sequence_array)) > 0
-
                 if (logical_2) {
                     message("Pattern NOT found")
                     return(NULL)}
 
-                if (any(SA$no_money == pattern)) {
-                    match <- which(SA$no_money == pattern)
-                    match <- rownames(SA)[match]
-                    } else {
-                        match <- ""}
-
                 start <- 1
                 end <- (nchar(BWT) - 1)
 
-                for (char in reversed_pattern_array) {
-                    start <- C[as.character(0), char] +
-                            Occ[as.character(start - 1), char]
+                for (idx in seq_along(reversed_pattern_array)) {
+                    char <- reversed_pattern_array[idx]
+                    if (idx == 1) {
+                        start <- C[as.character(0), char]
+                        } else {
+                            start <- C[as.character(0), char] +
+                            Occ[as.character(start - 1), char]}
 
                     end <- C[as.character(0), char] +
                             Occ[as.character(end), char] - 1
 
-                    if ((start > end) & (nchar(match) == 0)) {
+                    if (start > end) {
                         message("Pattern NOT found")
                         return(NULL)
-                        break}
-    }
-
-                if (nchar(match) != 0) {
-                    start <- as.integer(match)}
+                        break}}
 
                 final_range <- as.character((start):(end))
 
