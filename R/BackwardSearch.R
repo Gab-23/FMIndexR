@@ -98,6 +98,8 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
                                 indexes_str))
 
                 if (store_elems) {
-                    return(list(original_sequence, indexes, pattern))}
+                    return(list(sequence = original_sequence,
+                                indexes = indexes,
+                                pattern = pattern))}
         }
 }

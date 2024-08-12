@@ -118,13 +118,17 @@ result <- BackwardSearch(FM_index, 'GATG', TRUE)
 ```
 
 ```{r}
-sequence <- result[[1]]
-indexes <- result[[2]]
-pattern <- result[[3]]
+sequence <- result$sequence
+indexes <- result$indexes
+pattern <- result$pattern
 
-for (idx in indexes) {
-    sub <- substr(sequence, idx + 1, idx + nchar(pattern))
-    print(sub == pattern)}
+vec <- vapply(indexes, 
+              function(idx){
+                  sub <- substr(sequence, idx + 1, idx + nchar(pattern))
+                  return(sub == pattern)}, 
+               FUN.VALUE = logical(1))
+
+all(vec)
 ```
 
 The implementation was built following an online explanation 

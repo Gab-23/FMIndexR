@@ -74,4 +74,12 @@ In order to fix that, a small modification has been made:
 - If exact matches are found, the **start of the final range is updated** with the value returned by the exact match, if present. This is done because, inside a suffix array, **an exact match will always be alphabetically smaller than other occurrencies of the pattern in other suffixes**
 - The iteration is stopped if **start \> stop AND no exact match is met**
 
+## _**<u>Additional Notes</u>**_
+
+- **R version :**  4.3.2
+- **Dependencies :**
+	- **Biostrings :**  2.70.3
+	- **IRanges :**  2.36.0
+	- **zoo :**  1.8-12
+
 >Made -with love- by Gabriele Oliveto
