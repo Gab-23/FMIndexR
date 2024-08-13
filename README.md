@@ -52,7 +52,7 @@ Patterns can be searched using the **_BackwardSearch_** function, that takes as 
 ```{r}
 result <- BackwardSearch(FM_index, 'GATG', TRUE)
 ```
-The implementation was built following an online explanation that can be found [here](https://tinyurl.com/bwt-reference)
+The implementation was built following an online explanation that can be found [here](http://blog.thegrandlocus.com/2016/07/a-tutorial-on-burrows-wheeler-indexing-methods)
 
 The main idea is that the algorithm returns a range of rows in the suffix array in which suffixes starting with the pattern are present.
     

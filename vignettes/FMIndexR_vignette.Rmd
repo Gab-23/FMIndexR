@@ -139,9 +139,13 @@ rows_starting_with_pattern <- SA[startsWith(SA$suffix, pattern), ]
 all(rows_containing_indexes == rows_starting_with_pattern)
 
 ```
+```{r include=FALSE}
+link <- paste0("http://blog.thegrandlocus.com/",
+                "2016/07/a-tutorial-on-burrows-wheeler-indexing-methods")
+```
 
 The implementation was built following an online explanation 
-    that can be found [here](https://tinyurl.com/bwt-reference)
+    that can be found [here](`r link`)
 
 The main idea is that the algorithm returns a 
     range of rows in the suffix array 
