@@ -51,44 +51,24 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
                     message("Pattern NOT found")
                     return(NULL)}
 
-                start <- 1
-                end <- (nchar(BWT) - 1)
+                range <- .getRange(reversed_pattern_array,Occ,C,BWT)
+                start <- range$start
+                end <- range$end
 
-                for (idx in seq_along(reversed_pattern_array)) {
-                    char <- reversed_pattern_array[idx]
-                    if (idx == 1) {
-                        start <- C[as.character(0), char]
-                        } else {
-                            start <- C[as.character(0), char] +
-                            Occ[as.character(start - 1), char]}
-
-                    end <- C[as.character(0), char] +
-                            Occ[as.character(end), char] - 1
-
-                    if (start > end) {
-                        message("Pattern NOT found")
-                        return(NULL)
-                        break}}
+                if (start == '/' && end == '/') {
+                    message("Pattern NOT found")
+                    return(NULL)}
 
                 final_range <- as.character((start):(end))
-
                 num_pattern <- length(final_range)
                 indexes <- sort(as.vector(SA[final_range, ]$idx))
                 indexes_str <- paste(indexes, collapse = ", ")
 
                 if (nchar(original_sequence) <= 3000) {
-                    message(sprintf("Original Sequence: %s",
-                                    original_sequence))}
-
-                message(sprintf("%d pattern(s) found",
-                                num_pattern))
-
-                message(sprintf("Index(es): %s ",
-                                indexes_str))
+                    message(sprintf("Sequence: %s",original_sequence))}
+                message(sprintf("%d pattern(s) found",num_pattern))
+                message(sprintf("Index(es): %s ",indexes_str))
 
                 if (store_elems) {
                     return(list(sequence = original_sequence,
-                                indexes = indexes,
-                                pattern = pattern))}
-        }
-}
+                                indexes = indexes,pattern = pattern))}}}
