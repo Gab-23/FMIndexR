@@ -111,7 +111,8 @@ Patterns can be searched using the **_BackwardSearch_** function,
     and the pattern (**default = FALSE**). 
     This can be done in case a manual check wants to be made.
 
--   **_NOTE :_** if no pattern is found, NULL is returned
+The function shows the user the number of found patterns and their indexes. 
+**If no pattern is found, NULL is returned**
 
 ```{r}
 result <- BackwardSearch(FM_index, 'GATG', TRUE)
