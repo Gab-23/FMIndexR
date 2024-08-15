@@ -22,48 +22,51 @@
 #' FM_index
 #' @export
 FM_index_from_FASTA <- function(input, output, save = TRUE) {
-    fasta_data <- Biostrings::readDNAStringSet(input)
-    if (length(fasta_data) > 1) {
-        stop("multiFASTA files are not accepted!")
+    if (!file.exists(input) || (!dir.exists(output))) {
+        stop("File or output directory NOT found!")
         } else {
-            fasta_sequence <- as.character(fasta_data)
-            fasta_sequence <- toupper(fasta_sequence)
+        fasta_data <- Biostrings::readDNAStringSet(input)
+        if (length(fasta_data) > 1) {
+            stop("multiFASTA files are not accepted!")
+            } else {
+                fasta_sequence <- as.character(fasta_data)
+                fasta_sequence <- toupper(fasta_sequence)
 
-            fasta_sequence_header <- names(fasta_data)
-            fasta_sequence_header_path <- paste(output,"name.txt",
-                                                sep = "",collapse = "")
-            message("FASTA sequence correctly read!")
+                fasta_sequence_header <- names(fasta_data)
+                fasta_sequence_header_path <- paste(output,"name.txt",
+                                                    sep = "",collapse = "")
+                message("FASTA sequence correctly read!")
 
-            suffix_array <- .SuffixArray(fasta_sequence)
-            suffix_array_path <- paste(output,"suffix_array.txt",
+                suffix_array <- .SuffixArray(fasta_sequence)
+                suffix_array_path <- paste(output,"suffix_array.txt",
                                         sep = "",collapse = "")
-            message("Suffix Array created!")
+                message("Suffix Array created!")
 
-            BWT <- .BWTransform(suffix_array)
-            BWT_path <- paste(output,"BWT.txt",
-                                sep = "",collapse = "")
-            message("BWT created!")
-
-            occ_matrix <- .OccMatrix(BWT)
-            occ_matrix_path <- paste(output,"occ_matrix.txt",
-                                        sep = "",collapse = "")
-            message("Occ matrix created!")
-
-            c_array <- .CountArray(BWT)
-            c_array_path <- paste(output,"c_array.txt",
+                BWT <- .BWTransform(suffix_array)
+                BWT_path <- paste(output,"BWT.txt",
                                     sep = "",collapse = "")
-            message("C Array created!")
+                message("BWT created!")
 
-            if (save) {
-                .save(fasta_sequence_header,fasta_sequence_header_path,
-                        suffix_array,suffix_array_path,BWT,BWT_path,
-                        occ_matrix,occ_matrix_path,c_array,c_array_path)
-                message("Files correctly created!")}
+                occ_matrix <- .OccMatrix(BWT)
+                occ_matrix_path <- paste(output,"occ_matrix.txt",
+                                            sep = "",collapse = "")
+                message("Occ matrix created!")
 
-            FM_index <- list(SequenceName = fasta_sequence_header,
-                            SuffixArray = suffix_array,
-                            BWT = BWT,
-                            Occ = occ_matrix,
-                            CountArray = c_array)
-            class(FM_index) <- "FM_index"
-            return(FM_index)}}
+                c_array <- .CountArray(BWT)
+                c_array_path <- paste(output,"c_array.txt",
+                                        sep = "",collapse = "")
+                message("C Array created!")
+
+                if (save) {
+                    .save(fasta_sequence_header,fasta_sequence_header_path,
+                            suffix_array,suffix_array_path,BWT,BWT_path,
+                            occ_matrix,occ_matrix_path,c_array,c_array_path)
+                    message("Files correctly created!")}
+
+                FM_index <- list(SequenceName = fasta_sequence_header,
+                                SuffixArray = suffix_array,
+                                BWT = BWT,
+                                Occ = occ_matrix,
+                                CountArray = c_array)
+                class(FM_index) <- "FM_index"
+                return(FM_index)}}}

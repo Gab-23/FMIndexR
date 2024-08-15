@@ -45,4 +45,16 @@ test_that("Error with multifasta", {
   ))
 })
 
+test_that("File not found", {
+  expect_error(FM_index_from_FASTA("not-a-file",
+                                   output_path,
+                                   save = FALSE
+  ))
+})
 
+test_that("Dir not found", {
+  expect_error(FM_index_from_FASTA(input_file_ok,
+                                   "not-a-dir",
+                                   save = FALSE
+  ))
+})
