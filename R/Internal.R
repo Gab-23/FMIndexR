@@ -159,3 +159,17 @@
 
     rownames(count_df) <- 0
     return(count_df)}
+
+.FMIndex <- function(sequence_name,SA,BWT,Occ,C){
+    FM_index <- list(SequenceName = sequence_name,
+                    SuffixArray = SA,
+                    BWT = BWT,
+                    Occ = Occ,
+                    CountArray = C)
+
+    class(FM_index) <- "FM_index"
+    return(FM_index)
+}
+
+
+

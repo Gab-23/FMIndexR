@@ -70,9 +70,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE, compress = FALSE) {
                             suffix_array,suffix_array_path,BWT,BWT_path,
                             occ_matrix,occ_matrix_path,c_array,c_array_path)
                     message("Files correctly created!")}
-                FM_index <- list(SequenceName = fasta_sequence_header,
-                                SuffixArray = suffix_array,
-                                BWT = BWT,Occ = as.matrix(occ_matrix),
-                                CountArray = as.vector(c_array))
-                class(FM_index) <- "FM_index"
+                FM_index <- .FMIndex(fasta_sequence_header,suffix_array,
+                                        BWT,as.matrix(occ_matrix),
+                                        as.vector(c_array))
                 return(FM_index)}}}
