@@ -4,7 +4,7 @@
 \alias{FM_index_from_FASTA}
 \title{FM_index_from_FASTA}
 \usage{
-FM_index_from_FASTA(input, output, save = TRUE)
+FM_index_from_FASTA(input, output, save = TRUE, compress = FALSE)
 }
 \arguments{
 \item{input}{path to the FASTA file}
@@ -13,6 +13,9 @@ FM_index_from_FASTA(input, output, save = TRUE)
 
 \item{save}{default = TRUE, can be modified
 to avoid saving data in the output path}
+
+\item{compress}{default = FALSE, can be modified
+to compress the FM index}
 }
 \value{
 List-like object of type FM_index
@@ -24,6 +27,9 @@ from an input FASTA file
 \details{
 The FASTA file is parsed using a Biostrings function (readDNAStringSet)
 in order to ensure a robust and reliable parsing method
+
+The FM index is compressed by downsampling the suffix array,
+which is reduced by 50\% of its original size
 }
 \examples{
 # example creation of an FM index from a FASTA file

@@ -11,10 +11,17 @@ output_path <- system.file("output", package = "FMIndexR")
 
 FM_index_ok <- suppressMessages(FM_index_from_FASTA(input_file_ok,
                                                     output_path,
-                                                    save = FALSE))
+                                                    save = FALSE,
+                                                    compress = FALSE))
+
+FM_index_comp <- suppressMessages(FM_index_from_FASTA(input_file_ok,
+                                                      output_path,
+                                                      save = FALSE,
+                                                      compress = TRUE))
 
 test_that("Correct FM_index", {
   expect_s3_class(FM_index_ok, "FM_index")
+  expect_s3_class(FM_index_comp,"FM_index")
 })
 
 test_that("Error with no header", {

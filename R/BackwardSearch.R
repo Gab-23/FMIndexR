@@ -29,15 +29,13 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
             stop("FM index MUST be of class FM_index!")
             } else {
 
+                options(scipen = 999)
                 SA <- FM_index$SuffixArray
                 BWT <- FM_index$BWT
                 Occ <- FM_index$Occ
                 C <- FM_index$CountArray
 
-                original_sequence <- SA[SA$idx == 0, ]$suffix
-                original_sequence <- substr(original_sequence,1,
-                                            nchar(original_sequence) - 1)
-
+                original_sequence <- .reverseBWT(BWT,C,Occ)
                 original_sequence_array <- strsplit(original_sequence,
                                                     split = "")[[1]]
                 pattern <- toupper(pattern)
@@ -61,11 +59,11 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
 
                 final_range <- as.character((start):(end))
                 num_pattern <- length(final_range)
-                indexes <- sort(as.vector(SA[final_range, ]$idx))
+                indexes <- .getIndexes(BWT,SA,C,Occ,final_range,num_pattern)
+                indexes <- sort(unlist(indexes))
                 indexes_str <- paste(indexes, collapse = ", ")
 
-                if (nchar(original_sequence) <= 3000) {
-                    message(sprintf("Sequence: %s",original_sequence))}
+                message(sprintf('Pattern: %s',pattern))
                 message(sprintf("%d pattern(s) found",num_pattern))
                 message(sprintf("Index(es): %s ",indexes_str))
 

@@ -1,3 +1,6 @@
+
+#BackwardSearch
+
 .getRange <- function(rev_pattern_array,Occ,C,BWT){
 
     start <- 1
@@ -6,17 +9,58 @@
     for (idx in seq_along(rev_pattern_array)) {
         char <- rev_pattern_array[idx]
         if (idx == 1) {
-            start <- C[as.character(0), char]
+            start <- C[[char]]
             } else {
-                start <- C[as.character(0), char] +
+                start <- C[[char]] +
                 Occ[as.character(start - 1), char]}
 
-        end <- C[as.character(0), char] + Occ[as.character(end), char] - 1
+        end <- C[[char]] + Occ[as.character(end), char] - 1
         if (start > end) {
             return(list(start = '/', end = '/'))
             break}}
 
     return(list(start = start, end = end))}
+
+.reverseBWT <- function(BWT,C,Occ){
+    BWT_array <- strsplit(BWT,split = '')[[1]]
+    char<- "$"
+    val <- which(BWT_array == char) - 1
+    seq <- character(length(BWT_array))
+
+    for (i in seq_along(BWT_array)) {
+        seq[i] <- char
+        val <- C[[char]] + Occ[as.character(val),char] - 1
+        char <- BWT_array[val+1]}
+    seq <- paste(rev(seq), collapse = '')
+    seq <- substr(seq,1,nchar(seq)-1)
+    return(seq)}
+
+.getIndexes <- function(BWT,SA,C,Occ,final_range,num_pattern){
+
+    rebuild_idx <- function(BWT,SA,C,Occ,val){
+        i <- 0
+        while (TRUE) {
+            char <- substr(BWT,val+1,val+1)
+            val <- C[[char]] + Occ[as.character(val),char] - 1
+            i <- i + 1
+            if (val %% 2 == 0) {
+                idx <- SA[as.character(val),"idx"] + i
+                if (idx >= nchar(BWT)) {
+                    idx <- idx %% nchar(BWT)}
+                return(idx)}}}
+
+    indexes <- vector("list",length(num_pattern))
+
+    for (elem in seq_along(final_range)) {
+        num <- final_range[elem]
+        if (num %in% rownames(SA)) {
+            indexes[elem] <- SA[num,"idx"]
+            } else {
+                indexes[elem] <- rebuild_idx(BWT,SA,C,Occ,as.integer(num))}}
+    return(indexes)}
+
+
+#FM_index_from_FASTA
 
 .save <- function(seq,seq_path,SA,SA_path,BWT,BWT_path,Occ,Occ_path,C,C_path){
 
