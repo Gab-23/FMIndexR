@@ -7,8 +7,12 @@
 #' If the Suffix Array is compressed Last-to-First mapping
 #'     will be applied to reconstruct missing values
 #'
-#' Please note that querying a sequence using a compressed
-#'     FM index will take longer than using the uncompressed one
+#' Querying a sequence using a compressed FM index may take
+#'    longer than using the uncompressed one
+#'
+#' When store_elems = TRUE the original sequence has to be retrieved,
+#'    if not stored in the suffix array it has to be rebuilt from the BWT
+#'    this operation may require time for long sequences
 #'
 #' @param FM_index object of class FM_index obtained using FM_index_from_FASTA
 #' @param pattern non-empty string containing the pattern to look for
@@ -16,8 +20,10 @@
 #'     the original sequence,
 #'     the pattern indexes and the pattern string
 #'     in case a manual check wants to be made
-#' @return Shows a report of the number of patterns found and their location.
-#'     If store_elems = TRUE a report for manual check can be returned.
+#' @return Shows a report of the number of patterns found and their indexes
+#'     in the original sequence. Such indexes are also returned.
+#'     If store_elems = TRUE a more detailed report for manual check
+#'     can be returned.
 #'     If no pattern is found, NULL is returned
 #' @importFrom IRanges reverse
 #' @importFrom methods is
@@ -34,31 +40,28 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
         } else if (!is(FM_index, "FM_index")) {
             stop("FM index MUST be of class FM_index!")
             } else {
-
                 options(scipen = 999)
                 SA <- FM_index$SuffixArray
                 BWT <- FM_index$BWT
                 Occ <- FM_index$Occ
                 C <- FM_index$CountArray
 
-                original_sequence <- .reverseBWT(BWT,C,Occ)
-                original_sequence_array <- strsplit(original_sequence,
-                                                    split = "")[[1]]
+                BWT_array <- unique(strsplit(BWT,split = "")[[1]])
+                BWT_array <- BWT_array[BWT_array != "$"]
+
                 pattern <- toupper(pattern)
                 reversed_pattern <- IRanges::reverse(pattern)
                 reversed_pattern_array <- strsplit(reversed_pattern,
                                                     split = "")[[1]]
 
-                logical_2 <- length(setdiff(reversed_pattern_array,
-                                            original_sequence_array)) > 0
-                if (logical_2) {
+                logical_2 <- all(unique(reversed_pattern_array) %in% BWT_array)
+
+                if (!logical_2) {
                     message("Pattern NOT found")
                     return(NULL)}
-
                 range <- .getRange(reversed_pattern_array,Occ,C,BWT)
                 start <- range$start
                 end <- range$end
-
                 if (start == '/' && end == '/') {
                     message("Pattern NOT found")
                     return(NULL)}
@@ -74,5 +77,8 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
                 message(sprintf("Index(es): %s ",indexes_str))
 
                 if (store_elems) {
+                    original_sequence <- .get_original_sequence(SA,BWT,Occ,C)
                     return(list(sequence = original_sequence,
-                                indexes = indexes,pattern = pattern))}}}
+                                indexes = indexes,pattern = pattern))}
+                    else {return(indexes)}
+                }}

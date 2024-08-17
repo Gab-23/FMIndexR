@@ -5,7 +5,6 @@
 
     start <- 1
     end <- (nchar(BWT) - 1)
-
     for (idx in seq_along(rev_pattern_array)) {
         char <- rev_pattern_array[idx]
         if (idx == 1) {
@@ -13,7 +12,6 @@
             } else {
                 start <- C[[char]] +
                 Occ[as.character(start - 1), char]}
-
         end <- C[[char]] + Occ[as.character(end), char] - 1
         if (start > end) {
             return(list(start = '/', end = '/'))
@@ -22,15 +20,14 @@
     return(list(start = start, end = end))}
 
 .reverseBWT <- function(BWT,C,Occ){
-    BWT_array <- strsplit(BWT,split = '')[[1]]
+    BWT_arr <- strsplit(BWT,split = '')[[1]]
     char<- "$"
-    val <- which(BWT_array == char) - 1
-    seq <- character(length(BWT_array))
-
-    for (i in seq_along(BWT_array)) {
+    val <- which(BWT_arr == char) - 1
+    seq <- character(length(BWT_arr))
+    for (i in seq_along(BWT_arr)) {
         seq[i] <- char
         val <- C[[char]] + Occ[as.character(val),char] - 1
-        char <- BWT_array[val+1]}
+        char <- BWT_arr[val+1]}
     seq <- paste(rev(seq), collapse = '')
     seq <- substr(seq,1,nchar(seq)-1)
     return(seq)}
@@ -59,6 +56,14 @@
                 indexes[elem] <- rebuild_idx(BWT,SA,C,Occ,as.integer(num))}}
     return(indexes)}
 
+.get_original_sequence <- function(SA,BWT,Occ,C){
+    if (0 %in% SA$idx) {
+        original_sequence <- SA[SA$idx == 0,"suffix"]
+        original_sequence <- substr(original_sequence,
+                                    1,nchar(original_sequence)-1)
+        } else {
+            original_sequence <- .reverseBWT(BWT,C,Occ)}
+    return(original_sequence)}
 
 #FM_index_from_FASTA
 

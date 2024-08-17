@@ -17,8 +17,10 @@ the pattern indexes and the pattern string
 in case a manual check wants to be made}
 }
 \value{
-Shows a report of the number of patterns found and their location.
-If store_elems = TRUE a report for manual check can be returned.
+Shows a report of the number of patterns found and their indexes
+in the original sequence. Such indexes are also returned.
+If store_elems = TRUE a more detailed report for manual check
+can be returned.
 If no pattern is found, NULL is returned
 }
 \description{
@@ -30,8 +32,12 @@ backward search procedure.
 If the Suffix Array is compressed Last-to-First mapping
 will be applied to reconstruct missing values
 
-Please note that querying a sequence using a compressed
-FM index will take longer than using the uncompressed one
+Querying a sequence using a compressed FM index may take
+longer than using the uncompressed one
+
+When store_elems = TRUE the original sequence has to be retrieved,
+if not stored in the suffix array it has to be rebuilt from the BWT
+this operation may require time for long sequences
 }
 \examples{
 # Example pattern search using BackwardSearch and an FM Index

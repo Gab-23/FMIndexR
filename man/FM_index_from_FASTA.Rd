@@ -15,21 +15,22 @@ FM_index_from_FASTA(input, output, save = TRUE, compress = FALSE)
 to avoid saving data in the output path}
 
 \item{compress}{default = FALSE, can be modified
-to compress the FM index}
+to compress the FM index, by downsampling the suffix array}
 }
 \value{
 List-like object of type FM_index
 }
 \description{
 The function generates an FM_index structure starting
-from an input FASTA file
+from an input FASTA file.
 }
 \details{
 The FASTA file is parsed using a Biostrings function (readDNAStringSet)
-in order to ensure a robust and reliable parsing method
+in order to ensure a robust and reliable parsing method.
 
 The FM index is compressed by downsampling the suffix array,
-which is reduced by 50\% of its original size
+taking one every two suffixes, which will reduce the suffix array
+to 50\% of its original size.
 }
 \examples{
 # Example creation of an FM index from a FASTA file
