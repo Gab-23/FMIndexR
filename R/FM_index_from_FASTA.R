@@ -1,26 +1,27 @@
 #' FM_index_from_FASTA
 #'
 #' The function generates an FM_index structure starting
-#'     from an input FASTA file
+#'     from an input FASTA file.
 #'
 #' The FASTA file is parsed using a Biostrings function (readDNAStringSet)
-#'     in order to ensure a robust and reliable parsing method
+#'     in order to ensure a robust and reliable parsing method.
 #'
 #' The FM index is compressed by downsampling the suffix array,
-#'     which is reduced by 50% of its original size
+#'     taking one every two suffixes, which will reduce the suffix array
+#'     to 50% of its original size.
 #'
 #' @param input path to the FASTA file
 #' @param output path to the folder in which to save the data structures
 #' @param save default = TRUE, can be modified
 #'     to avoid saving data in the output path
 #' @param compress default = FALSE, can be modified
-#'     to compress the FM index
+#'     to compress the FM index, by downsampling the suffix array
 #' @return List-like object of type FM_index
 #' @importFrom zoo na.locf
 #' @importFrom Biostrings readDNAStringSet
 #' @importFrom utils write.table
 #' @examples
-#' # example creation of an FM index from a FASTA file
+#' # Example creation of an FM index from a FASTA file
 #' input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 #' output_path <- system.file("output", package = "FMIndexR")
 #' FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
@@ -71,6 +72,5 @@ FM_index_from_FASTA <- function(input, output, save = TRUE, compress = FALSE) {
                             occ_matrix,occ_matrix_path,c_array,c_array_path)
                     message("Files correctly created!")}
                 FM_index <- .FMIndex(fasta_sequence_header,suffix_array,
-                                        BWT,as.matrix(occ_matrix),
-                                        as.vector(c_array))
+                                        BWT,occ_matrix,c_array)
                 return(FM_index)}}}

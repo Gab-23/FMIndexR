@@ -32,7 +32,7 @@ The FM index is compressed by downsampling the suffix array,
 which is reduced by 50\% of its original size
 }
 \examples{
-# example creation of an FM index from a FASTA file
+# Example creation of an FM index from a FASTA file
 input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 output_path <- system.file("output", package = "FMIndexR")
 FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)

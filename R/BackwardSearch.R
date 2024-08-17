@@ -2,7 +2,13 @@
 #'
 #' The function looks for patterns inside the original sequence,
 #'     using its FM_index and performing a
-#'     backward search procedure
+#'     backward search procedure.
+#'
+#' If the Suffix Array is compressed Last-to-First mapping
+#'     will be applied to reconstruct missing values
+#'
+#' Please note that querying a sequence using a compressed
+#'     FM index will take longer than using the uncompressed one
 #'
 #' @param FM_index object of class FM_index obtained using FM_index_from_FASTA
 #' @param pattern non-empty string containing the pattern to look for
@@ -16,7 +22,7 @@
 #' @importFrom IRanges reverse
 #' @importFrom methods is
 #' @examples
-#' # example creation of pattern search using BackwardSearch and an FM Index
+#' # Example pattern search using BackwardSearch and an FM Index
 #' input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 #' output_path <- system.file("output", package = "FMIndexR")
 #' FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)

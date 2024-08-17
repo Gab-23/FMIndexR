@@ -64,11 +64,12 @@
 
 .save <- function(seq,seq_path,SA,SA_path,BWT,BWT_path,Occ,Occ_path,C,C_path){
 
+    C <- as.data.frame(C)
     writeLines(seq,con = seq_path)
     utils::write.table(SA,file = SA_path,sep = "\t",row.names = FALSE)
     writeLines(BWT,con = BWT_path)
     utils::write.table(Occ,file = Occ_path,sep = "\t",row.names = FALSE)
-    utils::write.table(C,file = C_path,sep = "\t",row.names = FALSE)}
+    utils::write.table(C,file = C_path,sep = "\t",row.names = TRUE)}
 
 .SuffixArray <- function(input_string) {
     if (nchar(input_string) == 0) {
@@ -120,45 +121,38 @@
     unique_bwt_letters <- unique(bwt_letters)
     sorted_unique_bwt_letters <- sort(unique_bwt_letters)
 
-    Occ_df <- data.frame(matrix(data = NA,
-                                nrow = length_bwt,
-                                ncol = length(sorted_unique_bwt_letters)))
+    Occ_mat <- matrix(data = NA,
+                        nrow = length_bwt,
+                        ncol = length(sorted_unique_bwt_letters))
 
-    colnames(Occ_df) <- sorted_unique_bwt_letters
+    colnames(Occ_mat) <- sorted_unique_bwt_letters
 
-    for (char in colnames(Occ_df)) {
+    for (char in colnames(Occ_mat)) {
 
         idx_vector <- which(bwt_letters == char)
-        Occ_df[idx_vector, char] <- seq_along(idx_vector)
+        Occ_mat[idx_vector, char] <- seq_along(idx_vector)
 
-        count_vec <- Occ_df[, char]
+        count_vec <- Occ_mat[, char]
         count_vec <- zoo::na.locf(count_vec, na.rm = FALSE)
         count_vec[is.na(count_vec)] <- 0
 
-        Occ_df[, char] <- count_vec}
+        Occ_mat[, char] <- count_vec}
 
-    rownames(Occ_df) <- 0:(nrow(Occ_df) - 1)
-    return(Occ_df)}
+    rownames(Occ_mat) <- 0:(nrow(Occ_mat) - 1)
+    return(Occ_mat)}
 
 .CountArray <- function(bwt) {
 
     bwt_char <- sort(unique((strsplit(bwt, split = "")[[1]])))
     sorted_bwt <- sort(strsplit(bwt, split = "")[[1]])
-
-    count_df <- data.frame(matrix(data = NA,
-                                    nrow = 1,
-                                    ncol = length(bwt_char)))
-
-    colnames(count_df) <- bwt_char
+    count_vec <- numeric(length(bwt_char))
+    names(count_vec) <- bwt_char
 
     for (char in bwt_char) {
-
-        df_idx <- which(colnames(count_df) == char)
         char_idx <- which(sorted_bwt == char)[1] - 1
-        count_df[1, df_idx] <- char_idx}
+        count_vec[char] <- char_idx}
 
-    rownames(count_df) <- 0
-    return(count_df)}
+    return(count_vec)}
 
 .FMIndex <- function(sequence_name,SA,BWT,Occ,C){
     FM_index <- list(SequenceName = sequence_name,
