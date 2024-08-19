@@ -81,7 +81,8 @@ As it appears, 32 is the compression rate that grants the best
 trade-off between query time and suffix array size reduction.
 
 ```{r echo=FALSE, out.height="130%", out.width="110%"}
-knitr::include_graphics(system.file("extdata", "size-time-plot.png",package = "FMIndexR"))
+knitr::include_graphics(system.file("extdata", "size-time-plot.png",
+                                    package = "FMIndexR"))
 ```
 
 
