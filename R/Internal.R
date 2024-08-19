@@ -1,36 +1,35 @@
 
 #BackwardSearch
 
-.getRange <- function(rev_pattern_array,Occ,C,BWT){
+.getRangeandCount <- function(rev_pattern_array,Occ,C,BWT){
 
-    start <- 1
-    end <- (nchar(BWT) - 1)
-    for (idx in seq_along(rev_pattern_array)) {
-        char <- rev_pattern_array[idx]
-        if (idx == 1) {
-            start <- C[[char]]
-            } else {
-                start <- C[[char]] +
-                Occ[as.character(start - 1), char]}
-        end <- C[[char]] + Occ[as.character(end), char] - 1
-        if (start > end) {
-            return(list(start = '/', end = '/'))
-            break}}
+    getRange <- function(rev_pattern_array,Occ,C,BWT){
+        start <- 1
+        end <- (nchar(BWT) - 1)
+        for (idx in seq_along(rev_pattern_array)) {
+            char <- rev_pattern_array[idx]
+            if (idx == 1) {
+                start <- C[[char]]
+                } else {
+                    start <- C[[char]] +
+                    Occ[as.character(start - 1), char]}
+                end <- C[[char]] + Occ[as.character(end), char] - 1
+                if (start > end) {
+                    return(NULL)
+                    break}}
 
-    return(list(start = start, end = end))}
+        return(list(start = start, end = end))}
 
-.reverseBWT <- function(BWT,C,Occ){
-    BWT_arr <- strsplit(BWT,split = '')[[1]]
-    char<- "$"
-    val <- which(BWT_arr == char) - 1
-    seq <- character(length(BWT_arr))
-    for (i in seq_along(BWT_arr)) {
-        seq[i] <- char
-        val <- C[[char]] + Occ[as.character(val),char] - 1
-        char <- BWT_arr[val+1]}
-    seq <- paste(rev(seq), collapse = '')
-    seq <- substr(seq,1,nchar(seq)-1)
-    return(seq)}
+    range <- getRange(rev_pattern_array,Occ,C,BWT)
+    if (is.null(range)) {
+        return(list(num_pattern = 0))
+        } else {
+            start <- range$start
+            end <- range$end
+
+            final_range <- as.character((start):(end))
+            num_pattern <- length(final_range)
+            return(list(range = final_range, num_pattern = num_pattern))}}
 
 .getIndexes <- function(BWT,SA,C,Occ,final_range,num_pattern){
 
@@ -55,6 +54,19 @@
             } else {
                 indexes[elem] <- rebuild_idx(BWT,SA,C,Occ,as.integer(num))}}
     return(indexes)}
+
+.reverseBWT <- function(BWT,C,Occ){
+    BWT_arr <- strsplit(BWT,split = '')[[1]]
+    char<- "$"
+    val <- which(BWT_arr == char) - 1
+    seq <- character(length(BWT_arr))
+    for (i in seq_along(BWT_arr)) {
+        seq[i] <- char
+        val <- C[[char]] + Occ[as.character(val),char] - 1
+        char <- BWT_arr[val+1]}
+    seq <- paste(rev(seq), collapse = '')
+    seq <- substr(seq,1,nchar(seq)-1)
+    return(seq)}
 
 .get_original_sequence <- function(SA,BWT,Occ,C){
     if (0 %in% SA$idx) {

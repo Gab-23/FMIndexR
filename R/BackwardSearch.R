@@ -59,15 +59,16 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
                 if (!logical_2) {
                     message("Pattern NOT found")
                     return(NULL)}
-                range <- .getRange(reversed_pattern_array,Occ,C,BWT)
-                start <- range$start
-                end <- range$end
-                if (start == '/' && end == '/') {
-                    message("Pattern NOT found")
-                    return(NULL)}
 
-                final_range <- as.character((start):(end))
-                num_pattern <- length(final_range)
+                range_and_count <- .getRangeandCount(reversed_pattern_array,
+                                                        Occ,C,BWT)
+                if (range_and_count$num_pattern == 0) {
+                    message("Pattern NOT found")
+                    return(NULL)
+                    } else {
+                        final_range <- range_and_count$range
+                        num_pattern <- range_and_count$num_pattern}
+
                 indexes <- .getIndexes(BWT,SA,C,Occ,final_range,num_pattern)
                 indexes <- sort(unlist(indexes))
                 indexes_str <- paste(indexes, collapse = ", ")
