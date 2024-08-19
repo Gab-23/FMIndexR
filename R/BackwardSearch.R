@@ -12,7 +12,7 @@
 #'
 #' When store_elems = TRUE the original sequence has to be retrieved,
 #'    if not stored in the suffix array it has to be rebuilt from the BWT
-#'    this operation may require time for long sequences
+#'    this operation may require some time for longer sequences
 #'
 #' @param FM_index object of class FM_index obtained using FM_index_from_FASTA
 #' @param pattern non-empty string containing the pattern to look for
@@ -21,7 +21,7 @@
 #'     the pattern indexes and the pattern string
 #'     in case a manual check wants to be made
 #' @return Shows a report of the number of patterns found and their indexes
-#'     in the original sequence. Such indexes are also returned.
+#'     in the original sequence. The indexes are also returned.
 #'     If store_elems = TRUE a more detailed report for manual check
 #'     can be returned.
 #'     If no pattern is found, NULL is returned
@@ -31,7 +31,12 @@
 #' # Example pattern search using BackwardSearch and an FM Index
 #' input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 #' output_path <- system.file("output", package = "FMIndexR")
-#' FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
+#'
+#' FM_index <- FM_index_from_FASTA(input_file,
+#'                                 output_path,
+#'                                 save = FALSE,
+#'                                 compress = TRUE)
+#'
 #' BackwardSearch(FM_index, "CC")
 #' @export
 BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {

@@ -23,6 +23,9 @@ List-like object of type FM_index
 \description{
 The function generates an FM_index structure starting
 from an input FASTA file.
+The FM Index contains the suffix array (SA),
+the Burrows-Wheeler Transform (BWT),
+the Occurrencies matrix (Occ) and the Count array (C).
 }
 \details{
 The FASTA file is parsed using a Biostrings function (readDNAStringSet)
@@ -36,6 +39,10 @@ to 50\% of its original size.
 # Example creation of an FM index from a FASTA file
 input_file <- system.file("extdata", "prova.txt", package = "FMIndexR")
 output_path <- system.file("output", package = "FMIndexR")
-FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE)
+
+FM_index <- FM_index_from_FASTA(input_file,
+                                output_path,
+                                save = FALSE,
+                                compress = TRUE)
 FM_index
 }
