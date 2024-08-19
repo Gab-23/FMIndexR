@@ -19,7 +19,8 @@ This package allows the user to efficiently build an FM index
 Data structures composing the FM index can also be saved as stand-alone files 
     in a user-defined output folder.
 
-The obtained FM index can then be used to look for patterns inside a sequence, 
+The obtained FM index can then be used to look for patterns 
+    inside a sequence, 
     using an implementation of Backward search algorithm.
 
 ```{r setup}
@@ -28,7 +29,8 @@ library(FMIndexR)
 
 ## <u>FM index creation </u>
 
-Using the ***FM_index_from_FASTA*** function an FM index can be easily created. 
+Using the ***FM_index_from_FASTA*** function an FM index 
+    can be easily created. 
     The function requires different parameters:
 
 -   ***input =*** the input path to the FASTA file
@@ -47,11 +49,17 @@ Using the ***FM_index_from_FASTA*** function an FM index can be easily created.
 input_file <- system.file("extdata", "prova_vignette.txt", package = "FMIndexR")
 output_path <- system.file("output", package = "FMIndexR")
 
-FM_index <- FM_index_from_FASTA(input_file, output_path, save = FALSE, compress = FALSE)
+FM_index <- FM_index_from_FASTA(input_file, 
+                                output_path, 
+                                save = FALSE, 
+                                compress = FALSE)
 ```
 
 ```{r, include = FALSE}
-FM_index_comp <- FM_index_from_FASTA(input_file, output_path, save = FALSE, compress = TRUE)
+FM_index_comp <- FM_index_from_FASTA(input_file, 
+                                        output_path, 
+                                        save = FALSE, 
+                                        compress = TRUE)
 ```
 
 The FM index is a list-like object of class "FM_index" and contains:
@@ -65,7 +73,8 @@ The FM index is a list-like object of class "FM_index" and contains:
     ```
 
     NOTE: when ***compress = TRUE*** , the suffix array gets downsampled, 
-        retaining only one suffix every two (becoming 50% of the original size).
+        retaining only one suffix every two 
+        (becoming 50% of the original size).
 
     ```{r paged.print=FALSE}
     FM_index_comp$SuffixArray
@@ -126,7 +135,8 @@ an implementation of the Backward Search algorithm,
 that looks for patterns inside a sequence using the FM index, 
 by looking at the pattern starting from its end.
 
-Patterns can be searched using the ***BackwardSearch*** function, that takes as input:
+Patterns can be searched using the ***BackwardSearch*** function, 
+that takes as input:
 
 -   ***FM_index =*** an object of class FM_index, 
     obtained using the function ***FM_index_from_FASTA***
@@ -189,7 +199,8 @@ since the first row always contains \$)
 
 -   ***end =*** length of the BWT - 1.
 
-At each iteration (going backwards along the pattern) the following steps are performed:
+At each iteration (going backwards along the pattern) 
+    the following steps are performed:
 
 -   for the first iteration only ***start =*** C[letter]
 
@@ -197,7 +208,8 @@ At each iteration (going backwards along the pattern) the following steps are pe
 
 -   ***end =*** Occ[end, letter] + C[letter] - 1
 
-If ***start \> end***, it means that the ***pattern is not found***, so the iterations stop.
+If ***start \> end***, it means that the ***pattern is not found***, 
+    so the iterations stop.
 
 Occurrencies are then found inside the original sequence by looking 
 at the rows pointed by the range. The rows contain the suffix 
