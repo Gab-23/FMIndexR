@@ -39,7 +39,7 @@
             char <- substr(BWT,val+1,val+1)
             val <- C[[char]] + Occ[as.character(val),char] - 1
             i <- i + 1
-            if (val %% 2 == 0) {
+            if (val %% 32 == 0) {
                 idx <- SA[as.character(val),"idx"] + i
                 if (idx >= nchar(BWT)) {
                     idx <- idx %% nchar(BWT)}

@@ -27,6 +27,20 @@ of Backward search algorithm.
 library(FMIndexR)
 ```
 
+```{r, include = FALSE}
+input_file <- system.file("extdata", "prova_vignette.txt", 
+                            package = "FMIndexR")
+output_path <- system.file("output", package = "FMIndexR")
+```
+
+All of the examples you find in this vignette,
+have been made using this example sequence:
+
+```{r}
+readLines(input_file)[2]
+```
+
+
 ## <u>FM index creation </u>
 
 Using the ***FM_index_from_FASTA*** function 
@@ -45,10 +59,6 @@ The function requires different parameters:
     by downsampling the suffix array (**default = FALSE**)
 
 ```{r}
-input_file <- system.file("extdata", "prova_vignette.txt", 
-                            package = "FMIndexR")
-output_path <- system.file("output", package = "FMIndexR")
-
 FM_index <- FM_index_from_FASTA(input_file, 
                                 output_path, 
                                 save = FALSE, 
@@ -72,12 +82,21 @@ The FM index is a list-like object of class "FM_index" and contains:
     FM_index$SuffixArray
     ```
 
-NOTE: when ***compress = TRUE*** , the suffix array gets downsampled, 
+NOTE: when ***compress = TRUE*** , the suffix array gets compressed, 
 retaining one suffix every 32. As the suffix array gets downsampled,
-the query time becomes longer. In order to understand the optimal
-compression rate, a plot has be shown
+the query time becomes longer. 
 
-As it appears, 32 is the compression rate that grants the best 
+In order to understand the optimal compression rate, 
+a plot has be shown. 
+
+- On the x-axis you find 
+the size in bytes of the suffix array.
+- On the y-axis you find 
+the average (n = 30) query time in seconds.
+
+As it appears, 
+keeping one suffix every 32 is the 
+compression rate that grants the best 
 trade-off between query time and suffix array size reduction.
 
 ```{r echo=FALSE, out.height="130%", out.width="110%"}
@@ -149,12 +168,19 @@ that takes as input:
     This can be done in case a manual check wants to be made
 
 The function shows the user the number of found patterns and their indexes 
-(which are also returned) 
+(which are also returned). 
 **If no pattern is found, NULL is returned**.
 
 ```{r}
 result <- BackwardSearch(FM_index, 'GATG', TRUE)
 ```
+
+```{r}
+result_comp <- BackwardSearch(FM_index_comp, 'GATG', TRUE)
+```
+
+**NOTE:** Pattern search performed on the uncompressed FM index
+retrieve the same results as the compressed one.
 
 ```{r}
 #MANUAL CHECK
@@ -172,10 +198,6 @@ vec <- vapply(indexes,
 
 all(vec)
 
-rows_containing_indexes <- SA[SA$idx %in% indexes,]
-rows_starting_with_pattern <- SA[startsWith(SA$suffix, pattern), ]
-
-all(rows_containing_indexes == rows_starting_with_pattern)
 
 ```
 
@@ -185,7 +207,7 @@ link <- paste0("http://blog.thegrandlocus.com/",
 ```
 
 The implementation was built following an online 
-explanation that can be found [here](%60r%20link%60).
+explanation that can be found [here](`r link`).
 
 The main idea is that the algorithm returns a range of rows 
 in the suffix array in which suffixes starting with the pattern are present.

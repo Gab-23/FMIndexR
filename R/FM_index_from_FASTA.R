@@ -10,8 +10,7 @@
 #'     in order to ensure a robust and reliable parsing method.
 #'
 #' The FM index is compressed by downsampling the suffix array,
-#'     taking one every two suffixes, which will reduce the suffix array
-#'     to 50% of its original size.
+#'     taking one every 32 suffixes.
 #'
 #' @param input path to the FASTA file
 #' @param output path to the folder in which to save the data structures
@@ -31,7 +30,7 @@
 #' FM_index <- FM_index_from_FASTA(input_file,
 #'                                 output_path,
 #'                                 save = FALSE,
-#'                                 compress = TRUE)
+#'                                 compress = FALSE)
 #' FM_index
 #' @export
 FM_index_from_FASTA <- function(input, output, save = TRUE, compress = FALSE) {
@@ -53,7 +52,7 @@ FM_index_from_FASTA <- function(input, output, save = TRUE, compress = FALSE) {
                 suffix_array <- .SuffixArray(fasta_sequence)
                 BWT <- .BWTransform(suffix_array)
                 if (compress) {
-                    suffix_array <- suffix_array[seq(1,nrow(suffix_array),2),]}
+                    suffix_array <- suffix_array[seq(1,nrow(suffix_array),32),]}
 
                 suffix_array_path <- paste(output,"suffix_array.txt",
                                             sep = "",collapse = "")

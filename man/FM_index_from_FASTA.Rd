@@ -32,8 +32,7 @@ The FASTA file is parsed using a Biostrings function (readDNAStringSet)
 in order to ensure a robust and reliable parsing method.
 
 The FM index is compressed by downsampling the suffix array,
-taking one every two suffixes, which will reduce the suffix array
-to 50\% of its original size.
+taking one every 32 suffixes.
 }
 \examples{
 # Example creation of an FM index from a FASTA file
@@ -43,6 +42,6 @@ output_path <- system.file("output", package = "FMIndexR")
 FM_index <- FM_index_from_FASTA(input_file,
                                 output_path,
                                 save = FALSE,
-                                compress = TRUE)
+                                compress = FALSE)
 FM_index
 }

@@ -47,7 +47,7 @@ output_path <- system.file("output", package = "FMIndexR")
 FM_index <- FM_index_from_FASTA(input_file,
                                 output_path,
                                 save = FALSE,
-                                compress = TRUE)
+                                compress = FALSE)
 
 BackwardSearch(FM_index, "CC")
 }
