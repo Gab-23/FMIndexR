@@ -13,27 +13,21 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE,comment = "#>")
 ```
 
-This package allows the user to efficiently build 
-an FM index from an input DNA FASTA file.
-Data structures composing the FM index can also 
-be saved as stand-alone files in a user-defined output folder.
-The obtained FM index can then be used to look for 
-patterns inside a sequence, using an implementation 
-of Backward search algorithm.
+This package allows the user to efficiently build an FM index from an input
+DNA FASTA file. Data structures composing the FM index can also be saved 
+as stand-alone files in a user-defined output folder. 
+The obtained FM index can then be used to look for patterns 
+inside a sequence, using an implementation of Backward search algorithm.
 
-**NOTE:** since the package deals with (possibly) large
-tabular formats, in order to avoid indexing errors
-the scientific notation has been disabled:
+**NOTE:** since the package deals with (possibly) large tabular formats, 
+in order to avoid indexing errors the scientific notation has been disabled:
 
-- Both functions will initially set the option scipen = 999
-- The standard setting using scipen = 0 
-    will be reset after each usage
-
+-   Both functions will initially set the option scipen = 999
+-   The standard setting using scipen = 0 will be reset after each usage
 
 ```{r setup}
 library(FMIndexR)
 ```
-
 
 ```{r, include = FALSE}
 input_file <- system.file("extdata", "prova_vignette.txt", 
@@ -41,18 +35,17 @@ input_file <- system.file("extdata", "prova_vignette.txt",
 output_path <- system.file("output", package = "FMIndexR")
 ```
 
-All of the examples you find in this vignette,
+All of the examples you find in this vignette, 
 have been made using this example sequence:
-
 
 ```{r echo=FALSE}
 readLines(input_file)[2]
 ```
+
 ## <u>FM index creation </u>
 
-Using the ***FM_index_from_FASTA*** function 
-an FM index can be easily created. 
-The function requires different parameters:
+Using the ***FM_index_from_FASTA*** function an FM index 
+can be easily created. The function requires different parameters:
 
 -   ***input =*** the input path to the FASTA file
 
@@ -90,33 +83,27 @@ The FM index is a list-like object of class "FM_index" and contains:
     ```
 
 **NOTE:** when ***compress = TRUE*** , the suffix array gets compressed, 
-retaining one suffix every 32. As the suffix array gets downsampled,
-the query time becomes longer. 
+retaining one suffix every 32. As the suffix array gets downsampled, 
+the query time becomes longer.
 
-In order to understand the optimal compression rate, 
-a plot has been shown. 
+In order to understand the optimal compression rate, a plot has been shown.
 
-- On the x-axis you find 
-the size in bytes of the suffix array.
-- On the y-axis you find 
-the average (n = 30) query time in seconds.
+-   On the x-axis you find the size in bytes of the suffix array.
+-   On the y-axis you find the average (n = 30) query time in seconds.
 
-As it appears, 
-keeping one suffix every 32 is the 
-compression rate that grants the best 
-trade-off between query time and suffix array size reduction.
+As it appears, keeping one suffix every 32 is the compression rate 
+that grants the best trade-off between query time 
+and suffix array size reduction.
 
 ```{r echo=FALSE, out.height="130%", out.width="110%"}
 knitr::include_graphics(system.file("extdata", "size-time-plot.png",
                                     package = "FMIndexR"))
 ```
 
-
 -   ***Burrows-Wheeler Transform (BWT) :*** a compression of 
-    the original string, 
-    that tends to cluster together similar characters. 
-    It is generated starting from the suffix array 
-    for efficiency (compared to the procedure involving a matrix).
+the original string, that tends to cluster together similar characters. 
+It is generated starting from the suffix array for efficiency 
+(compared to the procedure involving a matrix).
 
     ```{r}
     FM_index$BWT
@@ -127,8 +114,8 @@ knitr::include_graphics(system.file("extdata", "size-time-plot.png",
     the character of the original sequence 
     corresponding to the i-th index - 1.
 
--   ***Occurrencies matrix (Occ) :*** a matrix showing the 
-    cumulative count of characters of the BWT.
+-   ***Occurrencies matrix (Occ) :*** a matrix showing 
+    the cumulative count of characters of the BWT.
 
     ```{r paged.print=FALSE}
     FM_index$Occ
@@ -137,8 +124,9 @@ knitr::include_graphics(system.file("extdata", "size-time-plot.png",
 -   ***Count array ( C ) :*** a vector showing, for each character 
     in the sorted BWT, the number of characters that are alphabetically 
     smaller than the current character. 
-    The count array can be viewed also as the first index of occurrence 
-    of each character in the sorted BWT
+    
+    The count array can be viewed also as 
+    the first index of occurrence of each character in the sorted BWT
 
     ```{r paged.print=FALSE}
     seq <- strsplit(FM_index$BWT[1], split = '')[[1]]
@@ -157,9 +145,8 @@ knitr::include_graphics(system.file("extdata", "size-time-plot.png",
 ## <u>Pattern Search</u>
 
 The algorithm I used to perform pattern search is an implementation 
-of the Backward Search algorithm, that looks for patterns 
-inside a sequence using the FM index, 
-by looking at the pattern starting from its end.
+of the Backward Search algorithm, that looks for patterns inside a 
+sequence using the FM index, by looking at the pattern starting from its end.
 
 Patterns can be searched using the ***BackwardSearch*** function, 
 that takes as input:
@@ -169,13 +156,14 @@ that takes as input:
 
 -   ***pattern =*** a non-empty string containing the pattern to look for
 
--   ***store_elems =*** regulates whether or not to return a more detailed 
-    output containing the original sequence, the index of the pattern 
-    occurrencies and the pattern (**default = FALSE**). 
+-   ***store_elems =*** regulates whether or not to return 
+    a more detailed output containing the original sequence, 
+    the index of the pattern occurrencies and the pattern 
+    (**default = FALSE**). 
     This can be done in case a manual check wants to be made
 
-The function shows the user the number of found patterns and their indexes 
-(which are also returned). 
+The function shows the user the number of found patterns and 
+their indexes (which are also returned). 
 **If no pattern is found, NULL is returned**.
 
 ```{r}
@@ -186,8 +174,8 @@ result <- BackwardSearch(FM_index, 'GATG', TRUE)
 result_comp <- BackwardSearch(FM_index_comp, 'GATG', TRUE)
 ```
 
-**NOTE:** Pattern search performed on the uncompressed FM index
-retrieve the same results as the compressed one.
+**NOTE:** Pattern search performed on the uncompressed 
+FM index retrieve the same results as the compressed one.
 
 ```{r}
 #MANUAL CHECK
@@ -213,8 +201,8 @@ link <- paste0("http://blog.thegrandlocus.com/",
                 "2016/07/a-tutorial-on-burrows-wheeler-indexing-methods")
 ```
 
-The implementation was built following an online 
-explanation that can be found [here](`r link`).
+The implementation was built following an online explanation 
+that can be found [here](`r link`).
 
 The main idea is that the algorithm returns a range of rows 
 in the suffix array in which suffixes starting with the pattern are present.
@@ -235,29 +223,43 @@ the following steps are performed:
 
 -   ***end =*** Occ[end, letter] + C[letter] - 1
 
-If ***start \> end***, it means that the ***pattern is not found***, 
-so the iterations stop.
+If ***start \> end***, it means that 
+the ***pattern is not found***, so the iterations stop.
 
 Occurrencies are then found inside the original sequence 
-by looking at the rows pointed by the range. 
-The rows contain the suffix starting with the pattern 
-and the associated index.
+by looking at the rows pointed by the final range. 
+The rows contain the suffixes starting 
+with the pattern and the associated indexes in the
+original sequence.
+
+The idea behind the iterative procedure is that, 
+at each step, the range points towards rows in 
+the suffix array that, not only start with 
+the current character in the pattern,
+but are also followed by the previously iterated ones.
+
+For example, when looking for pattern GAGA in the sequence
+used as the example, the second iteration 
+(we are looking at G, since we start from the end of the pattern)
+will return a range of [7,10] pointing towards those rows
+of the suffix array, containing those suffixes starting with G
+and being followed by A
 
 The procedure gets more time-consuming and complicated 
 if the suffix array is compressed, 
-since not all elements of the range point 
+since not all elements of the final range point 
 towards an existing row of the suffix array.
 
-In order to retrieve the index of a missing row 
+In order to retrieve the index of a missing row
 a procedure known as **Last to First (LF) mapping** is applied
 
 **NOTE:** Common implementations of LF mapping use recursion. 
-Here, an iterative process has been implemented, hence,
-some differences between this implementation and the known ones
-may be present (more on this later).
+Here, an iterative process has been implemented, hence, 
+some differences between this implementation 
+and the known ones may be present (more on this later).
 
-Given a range R, if the i-th element of the range (**val**) 
-is not included in the suffix array:
+Given a range R, if the i-th element of the range 
+(**val**) is not included in the suffix array:
 
 -   The i-th character (**char**) of the BWT is retrieved
 
@@ -270,33 +272,36 @@ is not included in the suffix array:
 The index pointed by **val** in the suffix array + 
 the number of iterations performed
 
-The main difference with recursive implementations regards 
-out-of-bounds indexes. If the value of the index exceeds the length 
-of the sequence, then the **modulus operator %%** (index %% length)
+The main difference with recursive implementations 
+regards out-of-bounds indexes. If the value of the index exceeds 
+the length of the sequence, 
+then the **modulus operator %%** (index %% length) 
 is used obtain a compatible index.
 
-The difference arises when the **$** symbol is encountered:
+The difference arises when the **\$** symbol is encountered:
 
-- The recursive implementation would return 0 + the number of iterations.
-    
-- Here the function returns instead the index associated to $ 
+-   The recursive implementation would return 0 + the number of iterations.
+
+-   Here the function returns instead the index associated to \$ 
     (always the number of characters - 1) + the number of iterations
-    
-So for example if **on the first iteration** we encountered the $:
 
-- In the common implementation we would simply return 0
-- Here we return the index associated to $ + 1 (iteration) =
-    number of characters - 1 + 1 = number of characters
+So for example if **on the first iteration** we encountered the \$:
+
+-   In the common implementation we would simply return 0
+-   Here we return the index associated to \$ + 1 (iteration) = 
+    number of characters - 1 + 1 = number of characters 
     that will be later trimmed to 0 using the %% operator.
 
-Lastly, if **store_elems = TRUE** a detailed output containing
-the original sequence, the pattern and the indexes is returned.
-The program will try to look if the original sequence is already
-present in the suffix array. If not present, the original sequence
-will be reconstructed from the BWT and that operation may take a
-longer time.
+Lastly, if **store_elems = TRUE** a detailed output 
+containing the original sequence, the pattern and the indexes is returned. 
+The program will try to look if the original sequence is already present 
+in the suffix array. 
+
+If not present, the original sequence will be reconstructed 
+from the BWT and that operation may take a longer time.
 
 ```{r}
 sessionInfo()
 ```
+
 Made -with love- by Gabriele Oliveto
