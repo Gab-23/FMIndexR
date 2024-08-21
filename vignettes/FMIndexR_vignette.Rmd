@@ -15,7 +15,8 @@ knitr::opts_chunk$set(collapse = TRUE,comment = "#>")
 
 This package allows the user to efficiently build an FM index from an input
 DNA FASTA file. Data structures composing the FM index can also be saved 
-as stand-alone files in a user-defined output folder. 
+as stand-alone files in a user-defined output folder.
+
 The obtained FM index can then be used to look for patterns 
 inside a sequence, using an implementation of Backward search algorithm.
 
@@ -146,7 +147,8 @@ It is generated starting from the suffix array for efficiency
 
 The algorithm I used to perform pattern search is an implementation 
 of the Backward Search algorithm, that looks for patterns inside a 
-sequence using the FM index, by looking at the pattern starting from its end.
+sequence using the FM index, by looking at the pattern 
+starting from its end.
 
 Patterns can be searched using the ***BackwardSearch*** function, 
 that takes as input:

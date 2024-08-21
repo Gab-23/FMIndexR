@@ -33,7 +33,7 @@
 #'                                 compress = FALSE)
 #' FM_index
 #' @export
-FM_index_from_FASTA <- function(input, output, save = TRUE, compress = FALSE) {
+FM_index_from_FASTA <- function(input, output, save = TRUE, compress = FALSE){
     if (!file.exists(input) || (!dir.exists(output))) {
         stop("File or output directory NOT found!")
         } else {
