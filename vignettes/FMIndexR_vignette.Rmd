@@ -15,17 +15,25 @@ knitr::opts_chunk$set(collapse = TRUE,comment = "#>")
 
 This package allows the user to efficiently build 
 an FM index from an input DNA FASTA file.
-
 Data structures composing the FM index can also 
 be saved as stand-alone files in a user-defined output folder.
-
 The obtained FM index can then be used to look for 
 patterns inside a sequence, using an implementation 
 of Backward search algorithm.
 
+**NOTE:** since the package deals with (possibly) large
+tabular formats, in order to avoid indexing errors
+the scientific notation has been disabled:
+
+- Both functions will initially set the option scipen = 999
+- The standard setting using scipen = 0 
+    will be reset after each usage
+
+
 ```{r setup}
 library(FMIndexR)
 ```
+
 
 ```{r, include = FALSE}
 input_file <- system.file("extdata", "prova_vignette.txt", 
@@ -36,11 +44,10 @@ output_path <- system.file("output", package = "FMIndexR")
 All of the examples you find in this vignette,
 have been made using this example sequence:
 
-```{r}
+
+```{r echo=FALSE}
 readLines(input_file)[2]
 ```
-
-
 ## <u>FM index creation </u>
 
 Using the ***FM_index_from_FASTA*** function 
@@ -82,12 +89,12 @@ The FM index is a list-like object of class "FM_index" and contains:
     FM_index$SuffixArray
     ```
 
-NOTE: when ***compress = TRUE*** , the suffix array gets compressed, 
+**NOTE:** when ***compress = TRUE*** , the suffix array gets compressed, 
 retaining one suffix every 32. As the suffix array gets downsampled,
 the query time becomes longer. 
 
 In order to understand the optimal compression rate, 
-a plot has be shown. 
+a plot has been shown. 
 
 - On the x-axis you find 
 the size in bytes of the suffix array.
@@ -236,12 +243,18 @@ by looking at the rows pointed by the range.
 The rows contain the suffix starting with the pattern 
 and the associated index.
 
-The procedure gets more complicated if the suffix array is compressed, 
+The procedure gets more time-consuming and complicated 
+if the suffix array is compressed, 
 since not all elements of the range point 
 towards an existing row of the suffix array.
 
 In order to retrieve the index of a missing row 
-a procedure known as **Last to First (LF) mapping** is applied:
+a procedure known as **Last to First (LF) mapping** is applied
+
+**NOTE:** Common implementations of LF mapping use recursion. 
+Here, an iterative process has been implemented, hence,
+some differences between this implementation and the known ones
+may be present (more on this later).
 
 Given a range R, if the i-th element of the range (**val**) 
 is not included in the suffix array:
@@ -250,21 +263,40 @@ is not included in the suffix array:
 
 -   **val** is updated as follows: C[char] + Occ[char,val] - 1
 
--   If **val** is a multiple of the compression rate (2) 
+-   If **val** is a multiple of the compression rate (32) 
     then the row corresponding to **val** exists in the suffix array 
     and the corresponding index in the original string is computed as:
 
 The index pointed by **val** in the suffix array + 
 the number of iterations performed
 
-If the value of the index exceeds the length of the sequence, 
-then the modulus operator %% is used obtain a compatible index.
+The main difference with recursive implementations regards 
+out-of-bounds indexes. If the value of the index exceeds the length 
+of the sequence, then the **modulus operator %%** (index %% length)
+is used obtain a compatible index.
 
-For example, if the index is 15 and the length is 14, 15 %% 14 = 1, 
-so the occurrence is at index 1.
+The difference arises when the **$** symbol is encountered:
+
+- The recursive implementation would return 0 + the number of iterations.
+    
+- Here the function returns instead the index associated to $ 
+    (always the number of characters - 1) + the number of iterations
+    
+So for example if **on the first iteration** we encountered the $:
+
+- In the common implementation we would simply return 0
+- Here we return the index associated to $ + 1 (iteration) =
+    number of characters - 1 + 1 = number of characters
+    that will be later trimmed to 0 using the %% operator.
+
+Lastly, if **store_elems = TRUE** a detailed output containing
+the original sequence, the pattern and the indexes is returned.
+The program will try to look if the original sequence is already
+present in the suffix array. If not present, the original sequence
+will be reconstructed from the BWT and that operation may take a
+longer time.
 
 ```{r}
 sessionInfo()
 ```
-
-> Made -with love- by Gabriele Oliveto
+Made -with love- by Gabriele Oliveto

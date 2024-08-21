@@ -22,7 +22,7 @@
 #'     in case a manual check wants to be made
 #' @return Shows a report of the number of patterns found and their indexes
 #'     in the original sequence. The indexes are also returned.
-#'     If store_elems = TRUE a more detailed report for manual check
+#'     If store_elems = TRUE a more detailed output for manual check
 #'     can be returned.
 #'     If no pattern is found, NULL is returned
 #' @importFrom IRanges reverse
@@ -84,6 +84,7 @@ BackwardSearch <- function(FM_index, pattern, store_elems = FALSE) {
 
                 if (store_elems) {
                     original_sequence <- .get_original_sequence(SA,BWT,Occ,C)
+                    options(scipen = 0)
                     return(list(sequence = original_sequence,
                                 indexes = indexes,pattern = pattern))}
                     else {return(indexes)}

@@ -19,7 +19,7 @@ in case a manual check wants to be made}
 \value{
 Shows a report of the number of patterns found and their indexes
 in the original sequence. The indexes are also returned.
-If store_elems = TRUE a more detailed report for manual check
+If store_elems = TRUE a more detailed output for manual check
 can be returned.
 If no pattern is found, NULL is returned
 }
