@@ -1,2 +1,2 @@
->sequenza di prova
+>testing sequence vignette
 GATGCGAGAGATG
