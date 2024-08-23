@@ -7,25 +7,24 @@
 \title{FMIndexR: Easy FM Index Creation and Pattern Search from FASTA}
 \description{
 FMIndexR provides the means to generate an FM index
-starting from a FASTA
-file.The user will be able to save the individual data structures
-composing it. The FM index will then be used to look for patterns
+starting from a FASTA file.The user will be able to save
+the individual data structures composing it.
+The FM index will then be used to look for patterns
 inside the sequence using Backward Search
 
-It includes functions for the creation of the FM index and the search of
-patterns.
+It includes functions for the creation of the FM index
+and the search of patterns.
 }
 \seealso{
 Useful links:
 \itemize{
-    \item \url{https://github.com/Gab-23/FMIndexR}
-    \item Report bugs at \url{https://github.com/Gab-23/FMIndexR/issues}
+  \item \url{https://github.com/Gab-23/FMIndexR}
+  \item Report bugs at \url{https://github.com/Gab-23/FMIndexR/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Gabriele Oliveto \email{gabriele.oliveto@mail.polimi.it}
-(\href{https://orcid.org/0000-0000-0000-0000}{ORCID})
+\strong{Maintainer}: Gabriele Oliveto \email{gabriele.oliveto@mail.polimi.it} (\href{https://orcid.org/0000-0000-0000-0000}{ORCID})
 
 }
 \keyword{package}
