@@ -28,7 +28,7 @@
 # Purpose: FASTA file containing characters rejected by Biostrings::readDNAStringSet
 # Usage: Synthetic sequence to represent a problematic FASTA file
 
-# File: insulin_FASTA.txt
+# File: INS_FASTA.txt
 # Purpose: Real world example of FASTA file (NM_001185098.2)
 # Usage: Sequence provided to the user to be used as real world example
 
@@ -38,4 +38,8 @@
 
 # File: SNCB_FASTA.txt
 # Purpose: Real world example of FASTA file (NM_001001502.3)
+# Usage: Sequence provided to the user to be used as real world example
+
+# File: TUB_FASTA.txt
+# Purpose: Real world example of FASTA file (NM_177972.3)
 # Usage: Sequence provided to the user to be used as real world example
