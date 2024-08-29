@@ -140,7 +140,11 @@ If not present, the original sequence will be reconstructed from the BWT and tha
 
 - Inside the inst/extdata/ folder you will find some real case FASTA file to use
 - Each of the file in the inst/extdata folder is documented in the inst/script/Document-extdata.R file. 
-- Additional preloaded FM index will be available in the data/ folder
+-   An additional preloaded FM index will be available in the data/ folder. Such FM index is generated using the sequence stored in inst/extdata/TUB_FASTA.txt. The FM index can be obtained using:
+    
+```{r}
+data("FM_TUB")
+```
 
 Made -with love- by Gabriele Oliveto
 
