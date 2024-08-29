@@ -149,7 +149,7 @@ knitr::include_graphics(system.file("extdata", "size-time-plot.png",
     FM_index$SequenceName
     ```
 
-## <u>Pattern Search</u>
+## <u>Pattern Search</u> {#bs}
 
 The algorithm I used to perform pattern search is an implementation 
 of the Backward Search algorithm, that looks for patterns 
@@ -314,8 +314,19 @@ from the BWT and that operation may take a longer time.
 -   Each of the file in the inst/extdata folder is documented in the 
     inst/script/Document-extdata.R file. 
 
--   Additional preloaded FM index will be available in the data/ folder
+-   An additional preloaded FM index will be available in the data/ folder
+    Such FM index is generated using the sequence stored in 
+    inst/extdata/TUB_FASTA.txt. The FM index can be obtained using:
+    
+```{r}
+data("FM_TUB")
+```
+    
+Patterns can then easily be searched using [***BackwardSearch***](#bs)
 
+```{r}
+result_FM_TUB <- BackwardSearch(FM_TUB, "AATA", store_elems = FALSE)
+```
 
 ```{r}
 sessionInfo()
