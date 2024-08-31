@@ -18,14 +18,13 @@ and the search of patterns.
 \seealso{
 Useful links:
 \itemize{
-    \item \url{https://github.com/Gab-23/FMIndexR}
-    \item Report bugs at \url{https://github.com/Gab-23/FMIndexR/issues}
+  \item \url{https://github.com/Gab-23/FMIndexR}
+  \item Report bugs at \url{https://github.com/Gab-23/FMIndexR/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Gabriele Oliveto \email{gabriele.oliveto@mail.polimi.it}
-(\href{https://orcid.org/0000-0000-0000-0000}{ORCID})
+\strong{Maintainer}: Gabriele Oliveto \email{gabriele.oliveto@mail.polimi.it} (\href{https://orcid.org/0000-0000-0000-0000}{ORCID})
 
 }
 \keyword{package}
