@@ -9,10 +9,10 @@ FM_index_from_FASTA(input, output, save = TRUE, compress = FALSE)
 \arguments{
 \item{input}{path to the FASTA file}
 
-\item{output}{path to the folder in which to save the data structures}
+\item{output}{path to the directory in which to save the data structures}
 
 \item{save}{default = TRUE, can be modified
-to avoid saving data in the output path}
+to avoid saving data in the output directory}
 
 \item{compress}{default = FALSE, can be modified
 to compress the FM index, by downsampling the suffix array}

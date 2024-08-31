@@ -13,9 +13,9 @@
 #'     taking one every 32 suffixes.
 #'
 #' @param input path to the FASTA file
-#' @param output path to the folder in which to save the data structures
+#' @param output path to the directory in which to save the data structures
 #' @param save default = TRUE, can be modified
-#'     to avoid saving data in the output path
+#'     to avoid saving data in the output directory
 #' @param compress default = FALSE, can be modified
 #'     to compress the FM index, by downsampling the suffix array
 #' @return List-like object of type FM_index
