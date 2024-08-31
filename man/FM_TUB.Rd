@@ -7,11 +7,11 @@
 \format{
 An object of class FM_index, containing:
 \describe{
-\item{Suffix Array}{Description of the Suffix Array}
-\item{BWT}{Description of the Burrows-Wheeler Transform (BWT)}
-\item{Occ matrix}{Description of the Occurrence matrix}
-\item{Count array}{Description of the Count array}
-\item{FASTA header}{Description of the FASTA header}
+\item{Suffix Array}{The Suffix Array of the sequence}
+\item{BWT}{The Burrows-Wheeler Transform (BWT) of the sequence}
+\item{Occ matrix}{The Occurrencies matrix of the BWT}
+\item{Count array}{The Count array of the sequence}
+\item{FASTA header}{The FASTA header of the sequence}
 }
 }
 \source{
