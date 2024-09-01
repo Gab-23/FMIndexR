@@ -121,7 +121,7 @@ knitr::include_graphics(system.file("extdata", "size-time-plot.png",
     by taking, for each index i of the suffix array, the character 
     of the original sequence corresponding to the i-th index - 1.
 
--   ***Occurrencies matrix (Occ) :*** a matrix showing the cumulative count 
+-   ***Occurrences matrix (Occ) :*** a matrix showing the cumulative count 
     of characters of the BWT.
 
     ```{r paged.print=FALSE}
@@ -166,7 +166,7 @@ that takes as input:
 
 -   ***store_elems =*** regulates whether or not to return a more 
     detailed output containing the original sequence, 
-    the index of the pattern occurrencies and the pattern 
+    the index of the pattern occurrences and the pattern 
     (**default = FALSE**). 
     This can be done in case a manual check wants to be made
 
@@ -235,7 +235,7 @@ the following steps are performed:
 If ***start \> end***, it means that the ***pattern is not found***, 
 so the iterations stop.
 
-Occurrencies are then found inside the original sequence 
+Occurrences are then found inside the original sequence 
 by looking at the rows pointed by the final range. 
 The rows contain the suffixes starting with the pattern 
 and the associated indexes in the original sequence.
@@ -251,7 +251,7 @@ used as the example, the second iteration
 (we are looking at G, since we start from the end of the pattern) 
 will return a range of [7,10] pointing towards those rows 
 of the suffix array, containing those suffixes 
-starting with G and being followed by A
+starting with G and being followed by A.
 
 The procedure gets more time-consuming and complicated if 
 the suffix array is compressed, since not all elements 
@@ -282,7 +282,7 @@ the number of iterations performed
 The main difference with recursive implementations regards 
 out-of-bounds indexes. If the value of the index exceeds 
 the length of the sequence, then the **modulus operator %%** (index %% length) 
-is used obtain a compatible index.
+is used to obtain a compatible index.
 
 The difference arises when the **\$** symbol is encountered:
 
